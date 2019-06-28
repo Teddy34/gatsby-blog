@@ -95,7 +95,7 @@ export default class IndexPage extends React.Component<PageProps> {
                 <h2>About Me</h2>
                 <p>
                   Senior Developer at Riaktr, I love the JS language and ecosystem. I'm passionate about everything that makes our codebases
-                  reliable, easy to read and fast to ship.
+                  reliable, readable and fast to ship.
                 </p>
                 <hr />
                 <h2>Latest Blog</h2>
