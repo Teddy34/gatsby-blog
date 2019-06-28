@@ -69,9 +69,9 @@ export default class IndexPage extends React.Component<PageProps> {
                 <img src={config.siteLogo} />
                 <h1>
                   Hi. I am <br />
-                  Majid Hajian
+                  Jordi Sicart
                 </h1>
-                <p>I write about JavaScript, Angular, Ember, React, Vue, GlimmerJs, NodeJs, Rails, Go, Gatsby and ...</p>
+                <p>Practical JavaScript developer</p>
                 <Link to="/contact">
                   <Button big={true}>
                     <svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
@@ -94,9 +94,8 @@ export default class IndexPage extends React.Component<PageProps> {
               <HomepageContent>
                 <h2>About Me</h2>
                 <p>
-                  Though I am a results-driven front-end developer by day who have converted inactive designs to fully interactive,
-                  well-developed, accessible and standards-based user interfaces. I am completely enthusiast with a full stack environment
-                  and passionate about JavaScript world.
+                  Senior Developer at Riaktr, I love the JS language and ecosystem. I'm passionate about everything that makes our codebases
+                  reliable, easy to read and fast to ship.
                 </p>
                 <hr />
                 <h2>Latest Blog</h2>
