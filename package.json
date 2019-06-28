@@ -1,8 +1,8 @@
 {
   "name": "gatsby-starter-typescirpt-power-blog",
-  "description": "gatsyby blog template with typescript and tslint",
+  "description": "Personal blog based on gatsby-starter-typescirpt-power-blog",
   "version": "1.0.0",
-  "author": "Majid Hajian ( mhadaily@gmail.com )",
+  "author": "Jordi Sicart ( jorditeddy@gmail.com )",
   "keywords": [
     "gatsby, typescript",
     "blog"

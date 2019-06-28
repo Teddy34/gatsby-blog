@@ -1,8 +1,5 @@
-## Gatsby 2 Power blog starter with Typescript
-More features are coming, stay tuned! 
-
-## Success Stories:
-- I am using this template for my website https://www.majidhajian.com
+## Jordi Sicart's blog
+Based on Gatsby 2 Power blog starter with Typescript
 
 ### Description
 This is a standard starter with Typescript, TSLint, StyleLint, Prettier, Lint-Staged(Husky), Sass, StyleComponent, PWA
