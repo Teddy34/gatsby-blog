@@ -68,8 +68,8 @@ export default class IndexPage extends React.Component<PageProps> {
               <HomepageContent center={true}>
                 <img src={config.siteLogo} />
                 <h1>
-                  Hi. I am <br />
-                  Jordi Sicart
+                  JS Tips <br />
+                  By J.S.
                 </h1>
                 <p>Practical JavaScript developer</p>
                 <Link to="/contact">
