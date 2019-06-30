@@ -1,12 +1,12 @@
 ---
 date: "2019-06-28"
-title: "Clean up your code branches with cond"
+title: "Clean up your code branches with Lodash's _.cond"
 category: "Code Utilities"
 tags: ['Lodash', 'FP']
-banner: "/assets/bg/4.jpg"
+banner: "/assets/bg/pointe-sable-maurice2.jpg"
 ---
 ### Those nasty branches
-Have you already coded or debugged 2000 lines of if/then/else with crazy unreadable conditions? Have you raged at the moment your nice switch statement didn't scaled because you needed to add an if statement in one of the case?
+Have you already coded or debugged 2000 lines of if/then/else with crazy unreadable conditions? Have you raged at the moment your nice switch statement didn't scaled because you needed to add if statements in your cases?
 
 Well, looks like Lodash can AGAIN help you.
 
@@ -22,7 +22,7 @@ By using heavily the FP variant of Lodash in my team, we try to be on a sweet sp
 
 Today we're going to focus on a little known but super powerfull Lodash function: cond.
 
-You can think of cond as a super if, a switch statement on steroïds, or as the FP universe would call it an entry to Pattern Matching which might be added to JavaScript language itself soon (https://github.com/tc39/proposal-pattern-matching).
+You can think of cond as a super if or a switch on steroïds. In the FP universe we would call it an entry to Pattern Matching. Please note that the feature might be added to JavaScript language itself soon (https://github.com/tc39/proposal-pattern-matching).
 
 
 Please take 30 seconds to read the [Lodash documentation](https://lodash.com/docs/4.17.11#cond "It's short, read it really") and let's continue.

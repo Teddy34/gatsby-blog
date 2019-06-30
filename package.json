@@ -1,6 +1,6 @@
 {
   "name": "gatsby-starter-typescirpt-power-blog",
-  "description": "Personal blog based on gatsby-starter-typescirpt-power-blog",
+  "description": "Personal blog based on gatsby-starter-typescript-power-blog",
   "version": "1.0.0",
   "author": "Jordi Sicart ( jorditeddy@gmail.com )",
   "keywords": [
@@ -71,5 +71,6 @@
   },
   "dependencies": {
     "gatsby-plugin-google-tagmanager": "^2.0.5"
-  }
+  },
+  "engines" : { "node" : "11.13.0" }
 }
