@@ -6,7 +6,7 @@ tags: ['Lodash', 'FP']
 banner: "/assets/bg/pointe-sable-maurice2.jpg"
 ---
 ### Those nasty branches
-Have you already coded or debugged 2000 lines of if/then/else with crazy unreadable conditions? Have you raged at the moment your nice switch statement didn't scaled because you needed to add if statements in your cases?
+Have you already coded 2000 lines of if/then/else with crazy unreadable conditions? Have you updated/debugged/refactored this code to always see a test fail? (you do have unit tests, don't you?) Have you raged at the moment your nice switch statement didn't scaled because you needed to add if statements in your cases?
 
 Well, looks like Lodash can AGAIN help you.
 
@@ -44,10 +44,14 @@ myFirstCond(13) // returns 26
 myFirstCond(4) // returns 5
 ```
 
-So far it looks a lot like a switch statement that is doing more than defining a control flow for different values of a variable. Another look at it could be a series of if then else all sharing the same API, in a more compact way.
-It should already ring a bell that using the same arguments for the predicate and the function has a lot of potential. 
+So far it looks a lot like a switch statement that is doing more than defining a control flow for the different values of a variable. Another look at it could be a series of if then else all sharing arguments, in a more compact way.
+It should already ring a bell that using the same API for the predicates and the functions has a lot of potential. 
 
-Let's move now to a problem solving example using cond. It's time for my first ever FizzBuzz exercise (true story). As I avoided for too long the infamous tech interview exercise, we will implement three times the FizzBuzz using suble variations of cond usage.
+### Use cases with FizzBuzz
+
+Let's move now to a problem solving example using cond. It's time for my first ever [FizzBuzz](http://wiki.c2.com/?FizzBuzzTest) exercise (true story). As I avoided for too long the infamous tech interview exercise, we will implement three times the FizzBuzz using suble variations of cond usage.
+
+#### Describe your business rules for maximum readability
 
 Let's define first a list of predicates and execution functions. See how easy it is to write unit tests for those because of their API and purity.
 
@@ -59,11 +63,11 @@ const isMultipleOf5And3 = input => isMultipleOf3(input) && isMultipleOf5(input);
 const outputFizz = () => "Fizz"; // _.constant("Fizz")
 const outputBuzz = () => "Buzz";
 const outputFizzBuzz = () => "FizzBuzz"; 
-const otherwise = () => true; //_.stubTrue
+const otherwise = () => true; // _.stubTrue
 const outputNumber = number => number // _.identity 
 ```
 
-Please note the naming strategy. In this first implementation we are trying to describe in plain english the conditions associated with each output. In this specific case, this is describing strongly the implementation. This works great until the conditions are too complex to be explained in a short readable function name. The isMultipleOf5And3 is hinting at the limit. If you work enough on business names for your functions you won't encounter the problem that much. The inability to find a business name for a case is a warning light. perhaps your case is not correct.
+Please note the naming strategy. In this first implementation we are trying to describe in plain english the conditions associated with each output. In this specific case, this is describing strongly the implementation. This works great until the conditions are too complex to be explained in a short readable function name. The isMultipleOf5And3 is hinting at the limit. If you work enough on business names for your functions you won't encounter the problem that much. The inability to find a business name for a case is a warning light. perhaps your problem definition is not correct.
 
 ```js
 const fizzBuzz1 = _.cond([
@@ -81,7 +85,9 @@ Boom it reads nicely doesn't it?
 
 Our FizzBuzz1 leverages nicely the first truthy => first executed pair. This is often great but at scale, it creates an integration risk when the link between the predicate and its mate is not strong enough. In FizzBuzz1, the [isMultipleOf3, outputFizz] pair only work because isMultipleOf5And3 case is handled above.
 
-In order to solve this problem, we will work on FizzBuzz2. By adding more business responsability to the name of the predicate we are making sure that their implementation force decoupling between the case.
+#### Scale by decoupling the predicates
+
+In order to solve this problem, we will work on FizzBuzz2. By isolating and naming each business case, we can create tests and implementations that make sense alone. As a result, the predicate names are expressing less details about how they resolve the business question
 
 ```js
 const shouldFireFizzBuzz = input => isMultipleOf3(input) && isMultipleOf5(input);
@@ -91,7 +97,7 @@ const shouldFireBuzz = input => isMultipleOf5(input) && !isMultipleOf3(input);
 const shouldReturnInput = input => !isMultipleOf5(input) && !isMultipleOf3(input);
 ```
 
-The order of the pairs doesn't matter anymore as all predicates are mutually exclusives. Please note that there's no more need for a default handling (otherwise). Pattern matching implementation often differ about whether handling default is a good or bad thing. Lodash is flexible and you can treat the default case as an error if you want.
+Again, you can see how easy to unit-test those functions are.
 
 ```js
 const fizzBuzz2 = _.cond([
@@ -102,12 +108,9 @@ const fizzBuzz2 = _.cond([
 ]);
 ```
 
-Let's point free the console.log, we're using only the first argument. Most of the time in FP thinking we love unaries. This is one of the reason why the FP variant with currying and different argument order is more powerful. Please note that our cond study works with both variant.
+The order of the pairs doesn't matter anymore as all predicates are mutually exclusives. Please note that there's no more need for a default handling (otherwise). Pattern matching implementation often differ about whether handling default is a good or bad thing. Lodash is flexible and you can treat the default case as an error if you want.
 
-```js
-const logIt = _.unary(console.log)
-first100Numbers.map(fizzBuzz2).forEach(logIt);
-```
+#### Handle nested branches with cond composition
 
 One of the nice thing with cond is because of the common API, it's easy to compose cond together. The FizzBuzz3 example will explore the possibility of nesting conds to allow more complex control flows to split into different concerns.
 
@@ -131,21 +134,14 @@ const fizzBuzz3 = _.cond([
 
 As we can see all the branches of our nested cond are testable independently. It's interesting to see that some branches of our control flow arrive to the same outputFizzBuzz function. Very often when using if then else, we DRY things too much only to see our nice DRYed code explode after a requirement change. This is not going to happen here.
 
-Let's get a bit fancier with the execution using lodash/FP. It's basically the same as before.
-```js
-const fizzBuzzImplementationArg = _.placeholder
+This also illustrates how easy it is to refactor code using this approach. We have been connecting together a bunch of very descriptive functions in all sorts of different ways without having to change their implementation.
 
-testFizzBuzzImplementation = flow(
-	_.map(fizzBuzzImplementationArg, first100Numbers),
-	_.forEach(logIt);
-)
+### Requirement driven code organization
 
-testFizzBuzzImplementation (fizzBuzz3 );
-```
+Ok I've done enough FizzBuzz for the rest of my life. To conclude this article with cond, I would like to show an example about how much function naming can help expressing requirements by staying very close to their description.
+This result in code that is very easy to read and analyse. 
 
-Ok I've done enough FizzBuzz for the rest of my life. To conclude this article with cond, I would like to show an example about how much function naming can help implementing requirements by staying very close to the description of your requirements.
-
-Let's take an example with the chooseAColor function. Assume that you don't know the specs, you don't know the input and output data structures and you know that all functions are unit tested. How hard it is to understand what this code does?
+Let's take an example with the chooseAColor function. Assume that you don't know the specs, you don't know the input and output data structures and you know that all functions are unit tested. How hard it is to understand what this code does and how hard it is to spot the business integration mistake that I slipped into it?
 
 ```js
 const chooseBetweenSummerColors = cond([
@@ -161,12 +157,22 @@ const chooseBetweenWinterColors = cond([
 ]);
 
 const chooseAColor= cond([
-	[isItSummer, chooseBetweenSummerColors],
-	[isItWinter, chooseBetweenWinterColors],
+	[isItSummer, chooseBetweenWinterColors],
+	[isItWinter, chooseBetweenSummerColors],
 	[otherwiseMidSeason, chooseBlue],
 ]);
 ```
 
+Have you spotted the issue?
+
 This illustrates how FP can improve significantly a codebase without going through complicated abstract code. This style focus a lot on what we are trying to achieve and less on the how, relegating implication as a detail.
 
+### Conclusions
 
+What have we learned so far with cond?
+
+* By leveraging the same API for predicates & functions , the code is more flexible
+* By isolating concerns into separate functions with good names, the code is more readable
+* By using small pure functions, the code is more testable
+
+So after all, one might wonder if there's still a use case for if / switch / ternary operators and in all honesty, I still use them for small cases. As soon as it leaves the easy to read category, I usually refactor them into cond.
