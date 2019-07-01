@@ -13,7 +13,7 @@ Well, looks like Lodash can AGAIN help you.
 ### About Lodash
 Lodash is utility library used in a huge number of teams and is over 20M downloads per week at this moment. It provides a ton of small and powerfull algorithmic tools to avoid developpers to reimplement (often badly) the same logic all over again.
 
-Furthermore it's also drive people to embrace a more functional programming style. There's a ton of reading about the benefits of FP in JavaScript and I'm not going to redo the same thing as countless medium articles by explaining how map/reduce/filter can help clean an improve your codebase. Once embraced, it's hard not to go too far on the FP bandwagon and harass your coworkers with Monads all day long.
+Furthermore it's also drive people to embrace a more functional programming style. There's a [ton of reading](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0 "Here is one") about the benefits of FP in JavaScript and I'm not going to redo the same thing as countless medium articles by explaining how map/reduce/filter can help clean an improve your codebase. Once embraced, it's hard not to go too far on the FP bandwagon and harass your coworkers with Monads all day long.
 If you haven't read those, please do (some links below) and don't come back here until you understand what is a pure function and the basic FP tooling like filter, map or reduce.
 
 By using heavily the FP variant of Lodash in my team, we try to be on a sweet spot between classic imperative programming and too aggressive FP libs that require more theorical knowledge, resulting in difficult recruitement and longer onboarding. The benefit of the FP variant will be addressed hopefully in another blogpost.
@@ -83,7 +83,7 @@ first100Numbers.map(fizzBuzz1).forEach(value => console.log(value));
 
 Boom it reads nicely doesn't it?
 
-Our FizzBuzz1 leverages nicely the first truthy => first executed pair. This is often great but at scale, it creates an integration risk when the link between the predicate and its mate is not strong enough. In FizzBuzz1, the [isMultipleOf3, outputFizz] pair only work because isMultipleOf5And3 case is handled above.
+Our FizzBuzz1 leverages nicely the first truthy => first executed pair. In that sense, the naming convention we used has the scope of the cond usage. That makes it very close to the FizzBuzz specification. This is often great but at scale, it creates an integration risk when the link between the predicate and its pair is not strong enough. In FizzBuzz1, the [isMultipleOf3, outputFizz] pair only works because isMultipleOf5And3 case is handled above.
 
 #### Scale by decoupling the predicates
 
@@ -108,7 +108,8 @@ const fizzBuzz2 = _.cond([
 ]);
 ```
 
-The order of the pairs doesn't matter anymore as all predicates are mutually exclusives. Please note that there's no more need for a default handling (otherwise). Pattern matching implementation often differ about whether handling default is a good or bad thing. Lodash is flexible and you can treat the default case as an error if you want.
+The order of the pairs doesn't matter anymore as all predicates are mutually exclusives. This naming convention offers more flexibility at the cost of removing a bit of readability about why do we choose one branch or the other (which was the key advantage in the first implementation)
+Please note that there's no more need for a default handling (otherwise). Pattern matching implementation often differ about whether handling default is a good or bad thing. Lodash is flexible and you can treat the default case as an error if you want.
 
 #### Handle nested branches with cond composition
 
