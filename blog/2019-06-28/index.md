@@ -139,7 +139,7 @@ This also illustrates how easy it is to refactor code using this approach. We ha
 
 ### Requirement driven code organization
 
-Ok I've done enough FizzBuzz for the rest of my life. To conclude this article with cond, I would like to show an example about how much function naming can help expressing requirements by staying very close to their description.
+Ok I've done enough FizzBuzz for the rest of my life. I would like to show now an example about how much function naming can help expressing requirements by staying very close to their description.
 This result in code that is very easy to read and analyse. 
 
 Let's take an example with the chooseAColor function. Assume that you don't know the specs, you don't know the input and output data structures and you know that all functions are unit tested. How hard it is to understand what this code does and how hard it is to spot the business integration mistake that I slipped into it?
@@ -168,12 +168,19 @@ Have you spotted the issue?
 
 This illustrates how FP can improve significantly a codebase without going through complicated abstract code. This style focus a lot on what we are trying to achieve and less on the how, relegating implication as a detail.
 
+### Fitting into a good code pattern.
+
+The most important lesson here is not really about _.cond itself but more about how we splitted our implementation into smaller pieces with high decoupling and strong meaning. Cond is the generalization of a strong programming pattern (Pattern Matching) and writing our code in a way that fits the pattern results in higher quality code.
+
+This is often a result of using a Functional Programming style. Instead of making super custom/DRYed imperative code that ties business & algorithm concerns, we split the responsabilities of business (isMultipleOf5, outputBuzz) from the algorithmic ones (map, filter, cond, reduce). By leveraging a functional toolbox like Lodash, we are simply fitting our implementation into classic strong programming patterns. This is probably something what we will come down all over again in this blog.
+
 ### Conclusions
 
 What have we learned so far with cond?
 
-* By leveraging the same API for predicates & functions , the code is more flexible
+* By leveraging the same API for predicates & functions , the code is more flexible and easy to refactor or compose
 * By isolating concerns into separate functions with good names, the code is more readable
 * By using small pure functions, the code is more testable
+* By fitting into programming patterns, we can reduce the complexity 
 
 So after all, one might wonder if there's still a use case for if / switch / ternary operators and in all honesty, I still use them for small cases. As soon as it leaves the easy to read category, I usually refactor them into cond.
