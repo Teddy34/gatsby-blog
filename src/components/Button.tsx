@@ -6,7 +6,7 @@ export const Button: any = styled.button`
   border: none;
   display: inline-flex;
   align-items: center;
-  margin: 0 0.5rem;
+  margin: 0.5rem;
   border-radius: ${(props: any) => (props.big ? '1.5rem' : '1rem')};
   font-size: ${(props: any) => (props.big ? '1.2rem' : '1rem')};
   color: white;

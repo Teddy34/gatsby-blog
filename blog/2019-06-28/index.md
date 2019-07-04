@@ -1,6 +1,6 @@
 ---
 date: "2019-06-28"
-title: "Clean up your code branches with Lodash's _.cond"
+title: "Better branching with Lodash _.cond"
 category: "Code Utilities"
 tags: ['Lodash', 'FP']
 banner: "/assets/bg/pointe-sable-maurice2.jpg"

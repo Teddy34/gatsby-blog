@@ -66,10 +66,7 @@ export default class IndexPage extends React.Component<PageProps> {
           <Homepage>
             <GridRow background={true}>
               <HomepageContent center={true}>
-                <h1>
-                  JS Tips <br />
-                  by J.S.
-                </h1>
+                <h1>Coding with J.S.</h1>
                 <p>Practical JavaScript development</p>
                 <Link to="/contact">
                   <Button big={true}>
@@ -91,10 +88,12 @@ export default class IndexPage extends React.Component<PageProps> {
             </GridRow>
             <GridRow>
               <HomepageContent>
-                <h2>About Me</h2>
+                <h2>Hi, I'm J.S.</h2>
                 <p>
                   Senior Developer at Riaktr, I love the JS language and ecosystem. I'm passionate about everything that makes our codebases
                   reliable, readable and fast to ship.
+                  <br />
+                  You will find here some thoughts about web development, software engineering practices and JS en particular.
                 </p>
                 <hr />
                 <h2>Latest Blog</h2>
