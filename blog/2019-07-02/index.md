@@ -34,13 +34,12 @@ The company was an early adopter of Docker. At the time of my arrival, the solut
 
 #### Time allocation
 
-Going fast does not mean that there's no place for infrastructure & technical work. From the start of the project, the team had a 10 to 15% of our work capacity to be allocated to technical tasks. The objective was to let the team in control about upgrading the infrastructure, tooling and explore new technologies.
+Going fast does not mean that there's no place for infrastructure & technical work. From the start of the project, the team had a 10 to 15% of our work capacity to be allocated to technical tasks. The aim was to let the team in control about upgrading the infrastructure, tooling and to explore new technologies.
+Not that many project managers understand the value of this and it's also hard to use wisely.
 
+### Pain driven methodology.
 
-
-### Decouple and upgrade
-
-The original technical stack 
+As I said before, the team started the 
 
 #### leverage the docker pattern to decouple from CI env
 
