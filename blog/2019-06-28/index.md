@@ -22,7 +22,7 @@ By using heavily the FP variant of Lodash in my team, we try to be in a sweet sp
 
 Today we're going to focus on a little known but super powerful Lodash function: cond.
 
-You can think of cond as a super if or a switch on steroïds. In the FP universe, we would call it an entry to Pattern Matching. Please note that the feature might be added to JavaScript language itself soon (https://github.com/tc39/proposal-pattern-matching).
+You can think of cond as a super if or a switch on steroids. In the FP universe, we would call it an entry to Pattern Matching. Please note that the feature might be added to JavaScript language itself soon (https://github.com/tc39/proposal-pattern-matching).
 
 
 Please take 30 seconds to read the [Lodash documentation](https://lodash.com/docs/4.17.11#cond "It's short, read it really") and let's continue.
