@@ -18,7 +18,9 @@ Programming is about automation and data manipulation. The french word for compu
 
 But building a generic solution or a reusable engine requires more work than just find the solution to our initial problem. We need to handle edge cases, ensure long term maintenance and have a 'production' environment. Writing the code for it is also more difficult as we have to write stuff before running some data into it to see how it looks. Most of this is wasted effort if you need to do the actual computation only once.
 
-Let's consider a classic use case when you have to prepare data before a meeting. You have to extract data from a source (like a DB), clean it, find patterns and build some stats.  If it takes hours to do and you need to do the same thing again every day, automation is a clear winner, but very often it does not. XKCD has a great table to help if something is worth automating.
+Let's consider a classic use case when you have to prepare data before a meeting. You have to extract data from a source (like a DB), clean it, find patterns and build some stats.  If it takes hours to do and you need to do the same thing again every day, automation is a clear winner, but very often it does not. XKCD has a great table to help if something is worth automating:
+
+![XKCD is it worh the time](https://imgs.xkcd.com/comics/is_it_worth_the_time.png)
 
 Does that mean that you have to suffer and parse those 10.000 strings by hand? Of course not! Sometimes I just have 10 minutes before an impromptu meeting. Let's do one-shot programming. If only we had a great environment where we can make one shot automation of those pesky repetitive tasks. 
 
