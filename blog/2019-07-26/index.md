@@ -1,9 +1,9 @@
 ---
-date: "2019-07-04"
+date: "2019-07-26"
 title: "The only time I use var"
-category: "Life hacks"
+category: "Lifehacks"
 tags: ['WebDev']
-banner: "/assets/bg/pointe-sable-maurice2.jpg"
+banner: "/assets/bg/canigou.jpg"
 ---
 
 ### Var is obsolete
@@ -20,7 +20,7 @@ But building a generic solution or a reusable engine requires more work than jus
 
 Let's consider a classic use case when you have to prepare data before a meeting. You have to extract data from a source (like a DB), clean it, find patterns and build some stats.  If it takes hours to do and you need to do the same thing again every day, automation is a clear winner, but very often it does not. XKCD has a great table to help if something is worth automating:
 
-![XKCD is it worh the time](https://imgs.xkcd.com/comics/is_it_worth_the_time.png)
+![XKCD is it worth the time](https://imgs.xkcd.com/comics/is_it_worth_the_time.png)
 
 Does that mean that you have to suffer and parse those 10.000 strings by hand? Of course not! Sometimes I just have 10 minutes before an impromptu meeting. Let's do one-shot programming. If only we had a great environment where we can make one shot automation of those pesky repetitive tasks. 
 
@@ -52,20 +52,20 @@ And I hack stuff often in the console. Whether I want to check how a lib API wor
 
 The JavaScript CLI is great but sometimes, it's not enough. GeoJSON Manipulation without a tool is not easy and error-prone. But that's not a problem because we have the richest package manager ever at our disposal.
 
+And if CLI is not your style, [CodePen](https://codepen.io) or [CodeSandbox](https://codesandbox.io) online editors can help replace it although the feedback loop is not as great, especially if you have some long computation running each time you refresh the page.
+
 ### The web as the package manager
 
 That's right, it's simply the web. Need a date or number formatter, a JWT parser? It's available. There are two ways of accessing your favorite libs from the console.
 
-The first way might make you sweat a bit the first time but it's quite nice. CDNs are providing all libs already packed and ready to use, for every version. Loading them in the console might be a bit tricky sometimes because of CORS or module systems but it can extend your horizon quite far.
+The first way might make you sweat a bit the first time but it's quite nice. CDNs are providing all libs already packed and ready to use, for every version. Loading them in the console might be a bit tricky sometimes because of CORS or module systems but it can extend your horizon quite far. [RequireBin](http://requirebin.com/) & friends provided that for a time. You can also trick online editors to import and export lib on window object (you will need to choose the correct frame in the CLI as the sandboxes are... sandboxed).
 
 The second way is the fun one for me. Most lib websites are exposing their libs as globals in the console. copy your old data to the clipboard (there's a browser command for that), open a new tab, browse to the Moment website, paste your data in the console and start formatting your dates.
 
-So what are my favorite tools online? I use a lot Turf.JS for GeoJSON manipulation, Lodash for algorithms, Moment & Numbro.JS for date and number parsing/formatting. Some times it's not even about running things in the CLI. There are a lot of formatters & validator (SQL, JSON, etc.) or visualizers (WebPack bundle analyzer, GraphQL Voyager) directly usable in browsers. Just copy & paste.
+So what are my favorite tools online? I use a lot [Turf.JS](https://turfjs.org/) for GeoJSON manipulation, [Lodash](https://lodash.com/) for algorithms, [Moment](https://momentjs.com) & [Numbro.JS](https://numbrojs.com/) for date and number parsing/formatting. [VocaJS](https://vocajs.com) provides some nice features for string manipulation. Some times it's not even about running things in the CLI. There are a lot of formatters & validator (SQL, JSON, etc.) or visualizers like [Webpack Visualizer](https://chrisbateman.github.io/webpack-visualizer/), [GraphQL Voyager](https://apis.guru/graphql-voyager/) or [Geojson.io](http://geojson.io/) directly usable in browsers. Just copy & paste.
 
 ### Let's hack all the things
 
 In the end, this is not very different from what people do with the CLI in bash/PowerShell except that the browser is a much better IDE than a Linux terminal.
-
-A very good alternative to hacking stuff in the console would be to use a Codepen or Codesandbox online editor. The services are great and I frequently use them too. Overall they are most suited to my needs when I want to experiment a UI or a small server rather than just executing a series of commands and see the result right away.
 
 The fast feedback loop of the CLI and the ability to access almost any tool makes it one of my favorite way to find practical answers every day. It's amusing to see the look of the juniors when they see how simple we can demonstrate usage of libs or that we can do sorting filtering plus formatting faster than a business consultant using excel.
