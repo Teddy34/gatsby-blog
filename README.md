@@ -1,5 +1,6 @@
 ## Jordi Sicart's blog
 Based on Gatsby 2 Power blog starter with Typescript
+The following is the original ReadMe of the Gatsby starter kit frpm mhadaily
 
 ### Description
 This is a standard starter with Typescript, TSLint, StyleLint, Prettier, Lint-Staged(Husky), Sass, StyleComponent, PWA
