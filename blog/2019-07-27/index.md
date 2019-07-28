@@ -24,7 +24,7 @@ Few words on GraphQL first. From the [GraphQL official website](https://graphql.
 
 It's a technology developed and used by Facebook since 2012 and open-sourced in 2015 via a specification and a reference implementation. The genesis of GraphQL is interesting and the move toward open-sourcing is a success story to analyze. A great [documentary](https://www.youtube.com/watch?v=783ccP__No8) is available if you're interested.
 
-Our global experience with GraphQL has been fantastic. Of course, as the technology is still young. We encountered pitfalls and struggled to identify best practices and antipatterns but most of the time, the learnings from our failures in the GraphQL world resulted in more excitement about the tech.
+Our global experience with GraphQL has been fantastic. The technology is still young. We encountered pitfalls and struggled to identify best practices and antipatterns but most of the time, the learnings from our failures in the GraphQL world resulted in more excitement about the tech.
 
 #### The power of introspection
 
