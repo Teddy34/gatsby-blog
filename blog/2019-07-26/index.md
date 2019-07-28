@@ -66,6 +66,9 @@ So what are my favorite tools online? I use a lot [Turf.JS](https://turfjs.org/)
 
 ### Example: Building a voronoi map in 1 minute
 
+A [Voronoi diagram](https://en.wikipedia.org/wiki/Voronoi_diagram) is classic polygon building technique.
+Writing a small program able to generate the diagram and create its input data matching approximate points of interests is a process that can take between 15 minutes and a day depending on the programmer's experience. I actually never done it before. Let's see how I could perform it in less than a minute without actually building a program for it.
+
 1. First place your points on the map on geojson.io:
 ![first access to geojson.io](geojsonio.png)
 
@@ -75,6 +78,8 @@ So what are my favorite tools online? I use a lot [Turf.JS](https://turfjs.org/)
 
 4. Let's go back on geojson.io to see the result:
 ![see result](geojsonio2.png)
+
+Boom, I now have an answer expressed in a complex geojson structure. I can visualize it on a map and I'm ready to add a screen capture to a slideshow for my next meeting.
 
 ### Let's hack all the things
 
