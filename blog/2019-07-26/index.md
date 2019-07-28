@@ -30,7 +30,7 @@ You have at your disposal a JavaScript CLI, the ability to save snippets of code
 
 So let's open the console and start by the first step: putting our input data into a variable and then let's hack things
 
-```js
+```
 > const data = [1,2,3,4,5,6,7];
 < undefined
 > const filteredData = data.filter(num => num > 5);
@@ -63,6 +63,18 @@ The first way might make you sweat a bit the first time but it's quite nice. CDN
 The second way is the fun one for me. Most lib websites are exposing their libs as globals in the console. copy your old data to the clipboard (there's a browser command for that), open a new tab, browse to the Moment website, paste your data in the console and start formatting your dates.
 
 So what are my favorite tools online? I use a lot [Turf.JS](https://turfjs.org/) for GeoJSON manipulation, [Lodash](https://lodash.com/) for algorithms, [Moment](https://momentjs.com) & [Numbro.JS](https://numbrojs.com/) for date and number parsing/formatting. [VocaJS](https://vocajs.com) provides some nice features for string manipulation. Some times it's not even about running things in the CLI. There are a lot of formatters & validator (SQL, JSON, etc.) or visualizers like [Webpack Visualizer](https://chrisbateman.github.io/webpack-visualizer/), [GraphQL Voyager](https://apis.guru/graphql-voyager/) or [Geojson.io](http://geojson.io/) directly usable in browsers. Just copy & paste.
+
+### Example: Building a voronoi map in 1 minute
+
+1. First place your points on the map:
+![first access to geojson.io](geojsonio.png)
+
+2. Copy-paste the GeoJSON feature collection to the console in `data` variable in the turj.js website.
+3. Build the voronois and copy back to the clipboard:
+![building voronoi in turfjs webpage](turfjs.png)
+
+4. Let's go back on geojson.io to see the result:
+![see result](geojsonio2.png)
 
 ### Let's hack all the things
 
