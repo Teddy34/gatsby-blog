@@ -66,10 +66,10 @@ So what are my favorite tools online? I use a lot [Turf.JS](https://turfjs.org/)
 
 ### Example: Building a voronoi map in 1 minute
 
-1. First place your points on the map:
+1. First place your points on the map on geojson.io:
 ![first access to geojson.io](geojsonio.png)
 
-2. Copy-paste the GeoJSON feature collection to the console in `data` variable in the turj.js website.
+2. Copy-paste the GeoJSON feature collection to the console in `data` variable in the turf.js website.
 3. Build the voronois and copy back to the clipboard:
 ![building voronoi in turfjs webpage](turfjs.png)
 
