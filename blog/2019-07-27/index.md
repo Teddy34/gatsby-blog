@@ -59,7 +59,9 @@ As the totality of the schema can be introspected using the correct query, it wo
 
 [GraphQL Voyager](https://apis.guru/graphql-voyager/) automatically constructs documented diagrams for your API. With the online tool, you can explore some public GraphQL APIs like Github or Yelp. It's also possible to use introspection (copy-paste the query from the web interface, run the query in Playground and paste the result) or funnier, directly use the Schema Definition Language (SDL).
 
-Let's try this using this Kerbal Space Program example schema in SDL format.
+SDL is a human-readable format describing a GraphQL Schema and therefore, API. It's possible to generate SDL through tools ([Graphene](https://github.com/graphql-python/graphene), [Nexus](https://github.com/prisma/nexus) and many others) to simply write it directly.
+
+Let's try using this Kerbal Space Program example schema in SDL. (KSP is a popular video game featuring little green men called Kerbals trying to fly custom made rockets into space and usually ending in huge fireballs).
 
 ```
 type Query {
@@ -106,6 +108,8 @@ type Query {
     SHOULD_HAVE_BIGGER_ANTENNA
   }
 ```
+
+As you can see, the GraphQL schema expressed in SDL is easy to read. The relations between the different entities are clear, even if you have little programming experience.
 
 And this is what Voyager will give you:
 
