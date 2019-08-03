@@ -46,7 +46,7 @@ The funny thing with a browser like Chrome is that you don't even have to execut
 
 This programming style step by step allows you to manipulate data fast and check the output at each step to see if you're on track. You can also start working with a small dataset and once you have a correct formula, apply it on a bigger one.
 
-At some point, you'll do like me when I typed the example code in my browser and make a typo when assigning some data to a variable. No problem except that by using `const`, I cannot reassign the variable. Even if I was using `let`, the keyword wouldn't let me redeclare a variable with the same name and so I would have to change its name or reload the browser console. So sad. So to link back to the title of the blog post, when I hack stuff in the console, I use `var `for it and this is the only times I have been using the despised keyword since I met the Babel transpiler.
+At some point, you'll do like me when I typed the example code in my browser and make a typo when assigning some data to a variable. No problem except that by using `const`, I cannot reassign the variable. Even if I was using `let`, the keyword wouldn't let me redeclare a variable with the same name and so I would have to change its name or reload the browser console. So sad. So to link back to the title of the blog post, when I hack stuff in the console, I use `var` for it   and this is the only times I have been using the despised keyword since I met the Babel transpiler.
 
 And I hack stuff often in the console. Whether I want to check how a lib API works, test a small function that I just wrote, compute some GeoJSON test data, or parse an email full of logs. You can handle without big performance problems a few tens of megabytes of data in the console.
 
