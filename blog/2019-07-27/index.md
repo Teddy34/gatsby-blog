@@ -8,7 +8,7 @@ banner: "/assets/bg/newyork.jpg"
 
 ### Two years into GraphQL
 
-My team recently had to work on the technical design for a whole new part in our main web app. We had to understand the requirements, challenge them and finally transpose them into designs for our database, UI structure and more importantly the API used between the front-end and the back-end. As GraphQL users for about two years now, we developped a mindset where our GraphQL schema is at the center of our technical design.
+My team recently had to work on the technical design for a whole new part in our main web app. We had to understand the requirements, challenge them and finally transpose them into designs for our database, UI structure and more importantly the API used between the front-end and the back-end. As GraphQL users for about two years now, we developed a mindset where our GraphQL schema is at the center of our technical design.
 
 Two points of interest stand out of our exercise. The first one is about how powerful are the tools that we used to design our GraphQL schema. The second one is how defining our API schema helped us to understand and challenge the original requirements and communicate better between people.
 
@@ -20,7 +20,7 @@ Few words on GraphQL first. From the [GraphQL official website](https://graphql.
 
 > GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
 
-Another way to put it means that GraphQL is an alternative for REST, SOAP and friends. Its vision is being consumer driven and agnostic of back-end implementations and technologies. 
+Another way to put it means that GraphQL is an alternative for REST, SOAP and friends. Its vision is being consumer-driven and agnostic of back-end implementations and technologies. 
 
 GraphQL is being developed and used by Facebook since 2012 and was open-sourced in 2015 via a specification and a reference implementation. Since then a lot of new servers and clients saw birth using the same specification (and are therefore compatible). The genesis of GraphQL is interesting and the move toward open-sourcing is a success story to analyze. A great [documentary](https://www.youtube.com/watch?v=783ccP__No8) is available if you're interested.
 
@@ -34,7 +34,7 @@ As a result, most tools built around GraphQL are quite adaptive. They can be con
 
 ### GraphQL Web IDE
 
-When working with a web API, one of the first thing that a developer usually do is to play with the API using tools like curl, wget. Setup headers, hit the correct URL and see the results (or errors). The experience is greatly enhanced by using a tool like [Postman](https://www.getpostman.com). It's quite easy to fire GraphQL queries using Postman even if you will probably make a lot of typos and need API documentation.
+When working with a web API, one of the first thing that a developer usually do is to play with the API using tools like curl, wget. Setup headers then hit the correct URL and see the results (or errors). The experience is greatly enhanced by using a tool like [Postman](https://www.getpostman.com). It's quite easy to fire GraphQL queries using Postman even if you will probably make a lot of typos and need API documentation.
 
 Using the powers of introspection, tools like [GraphiQL](https://github.com/graphql/graphiql) will send you to another dimension. On launch or endpoint selection, the tool will automatically introspect the API for you and give you superpowers.
 You can write queries with autocompletion and validation error while keeping an eye on the documentation! That's the tool exposed by the [GitHub GraphQL API](https://developer.github.com/v4/explorer/). I'm pretty sure one can write basic queries without any prior knowledge about the API or the query language. There are of course online implementations that will work with any GraphQL server as long as you don't need auth for it (https://lucasconstantino.github.io/graphiql-online/).
@@ -59,7 +59,7 @@ As the totality of the schema can be introspected using the correct query, it wo
 
 [GraphQL Voyager](https://apis.guru/graphql-voyager/) automatically builds diagrams for your API. With the online tool, you can explore some public GraphQL APIs like Github or Yelp. It's also possible to use introspection (copy-paste the query from the web interface, run the query in Playground and paste the result) or funnier, directly use the Schema Definition Language (SDL).
 
-SDL is a human-readable format describing a GraphQL Schema and therefore, API. It's possible to generate SDL through tools ([Graphene](https://github.com/graphql-python/graphene), [Nexus](https://github.com/prisma/nexus) and many others) to simply write it directly by hand. Choosing between SDL or Code first is [heavily debated in the commmunity](https://twitter.com/jorditeddy/status/1141991622747598848) but in the end both options are fine. My team is using an SDL first approach.
+SDL is a human-readable format describing a GraphQL Schema and therefore, API. It's possible to generate SDL through tools ([Graphene](https://github.com/graphql-python/graphene), [Nexus](https://github.com/prisma/nexus) and many others) to simply write it directly by hand. Choosing between SDL or Code first is [heavily debated in the commmunity](https://twitter.com/jorditeddy/status/1141991622747598848) but in the end, both options are fine. My team is using an SDL first approach.
 
 Let's try using this Kerbal Space Program example schema in SDL. (KSP is a popular video game featuring little green men called Kerbals trying to fly custom made rockets into space and usually ending in huge fireballs).
 
@@ -115,7 +115,7 @@ And this is what Voyager will give you if you provide this SDL version of the AP
 
 ![voyager](graphqlvoyager.png)
 
-You can click on any type or edge to have more information about them and highlight the paths and links in your schema.
+You can click on any type or any edge to have more information about them and highlight the paths and links in your schema.
 Honestly, the first time I saw this running with the real schema of my project, my jaw dropped.
 
 As usual with GraphQL tools, Voyager exists as a standalone web app or as middleware for your favorite webserver. Contrary to Playground, it's possible to add default headers for auth.
