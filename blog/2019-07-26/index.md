@@ -1,6 +1,6 @@
 ---
 date: "2019-07-26"
-title: "The only time I use var (Fast prototyping using REPL)"
+title: "The only time I use var"
 category: "Lifehacks"
 tags: ['WebDev']
 banner: "/assets/bg/canigou.jpg"
