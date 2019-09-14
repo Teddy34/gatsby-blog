@@ -26,7 +26,7 @@ Does that mean that you have to suffer and parse those 10.000 strings by hand? O
 
 ### The browser is my favorite IDE
 
-You have at your disposal a JavaScript CLI, the ability to save snippets of code, debuggers, multiple terminals and if you're lucky internet provides you an incredible ecosystem. The average salesman laptop already contains everything that you need.
+You have at your disposal a JavaScript REPL (Read Eval Print Loop), the ability to save snippets of code, debuggers, multiple terminals and if you're lucky internet provides you an incredible ecosystem. The average salesman laptop already contains everything that you need.
 
 So let's open the console and start by the first step: putting our input data into a variable and then let's hack things
 
