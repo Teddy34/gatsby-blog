@@ -1,5 +1,5 @@
 ---
-date: "2019-07-27"
+date: "2019-09-13"
 title: "Great GraphQL tools"
 category: "GraphQL"
 tags: ['WebDev', 'GraphQL']
