@@ -30,7 +30,7 @@ You have at your disposal a JavaScript REPL (Read Eval Print Loop), the ability 
 
 So let's open the console and start by the first step: putting our input data into a variable and then let's hack things
 
-```
+```javascript
 > const data = [1,2,3,4,5,6,7];
 < undefined
 > const filteredData = data.filter(num => num > 5);
