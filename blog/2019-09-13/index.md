@@ -63,7 +63,7 @@ SDL is a human-readable format describing a GraphQL Schema and therefore, API. I
 
 Let's try using this Kerbal Space Program example schema in SDL. (KSP is a popular video game featuring little green men called Kerbals trying to fly custom made rockets into space and usually ending in huge fireballs).
 
-```
+```graphql
   type Query {
     bodyList: [Body]
     kerbonaut(id: ID): Kerbonaut
