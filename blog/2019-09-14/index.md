@@ -164,7 +164,7 @@ const hasAtLeastOneTruePermission = flow(
 );
 ```
 
-This is my experience that it's better to build opposite functions based on only one implementation. In imperative programming, a small `!`  is often used, as we are manipulating functions, having a function that wraps another one and returns the opposite boolean if very useful. Classic point free style bonus, it also reads very well and is hard to typo.
+This is my experience that it's better to build opposite functions based on only one implementation. In imperative programming, a small `!`  is often used, but as we are manipulating functions, having a function that wraps another one and returns the opposite boolean is very useful. Classic point free style bonus, it also reads very well and is hard to typo.
 
 This function is accompagnied by a lost of small utilities that perform also dumb things like `eq`, `isNull`, `isNil`, and others. The spirit is the same. By the same occasion, we stopped spending time of the best way to detect `null` from `undefined` or checking is a number is really a number. Time is better spent elsewhere, believe me...
 
