@@ -32,7 +32,7 @@ const data = {
   c: 2
 };
 
-const b = get('a.b', data); // FP variant reverses argument order (and this is great)
+const b = get('a.b', data); // FP variant puts the data as last argument (and this is great)
 
 console.log(b); // 1
 ```
@@ -156,21 +156,23 @@ const isEven = num => num % 2 == 0;
 const isOdd = negate(isEven);
 const isOddOldWay = num => !isEven(num);
 
-const hasAtLeatOneElement = negate(isEmpty);
+const hasAtLeastOne = negate(isEmpty);
 
 const hasAtLeastOneTruePermission = flow(
   getEnabledPermissionList, // reuse from above :)
-  hasAtLeatOneElement
+  hasAtLeastOne
 );
 ```
 
-This is my experience that it's better to build opposite functions based on 
+This is my experience that it's better to build opposite functions based on only one implementation. In imperative programming, a small `!`  is often used, as we are manipulating functions, having a function that wraps another one and returns the opposite boolean if very useful. Classic point free style bonus, it also reads very well and is hard to typo.
+
+This function is accompagnied by a lost of small utilities that perform also dumb things like `eq`, `isNull`, `isNil`, and others. The spirit is the same. By the same occasion, we stopped spending time of the best way to detect `null` from `undefined` or checking is a number is really a number. Time is better spent elsewhere, believe me...
 
 #### map vs reduce vs forEach
 
 48 `map`, 5 `reduce` are 5 `forEach`. Wow I didn't expected to have so few reduces and so many forEach. After close examination, all the `forEach` are justified. If you are not familiar with those, they are the bread and butter of every FP article out there.
 
-`map`usage seems pretty standard to me. The idea of a type transformation (think projection) applied to a list can be applied everywhere. One might wonder why we do not use the native `Array.prototype.map`. Again we don't have a specific rule about it, but Lodash's map applies to object and map collections, can use the builtin `get` style iterator and benefit from the curry/data-last FP combo. Of course it means a lot of unaries easy to name, reuse, test and compose.
+`map` usage seems pretty standard to me. The idea of a type transformation (think projection) applied to a list can be applied everywhere. One might wonder why we do not use the native `Array.prototype.map`. Again we don't have a specific rule about it, but Lodash's map applies to object and map collections, can use the builtin `get` style iterator and benefit from the curry/data-last FP combo. Of course it means a lot of unaries easy to name, reuse, test and compose.
 
 `reduce` might a FP star, but in the end, Lodash's utilities, probably often built on top of `reduce` solves most of our use cases. I would still recommend the function for studying. I was expecting that some of the heavy FP recipes that we use might be one day refactored in a high performance unreadable piece of code relying on `reduce` or older fast loop tools, but, after some iterations on performance analysis, none of these have been flagged for a rewrite. Speaking of performance, we have what I would consider a high number of `memoize` imports in the codebase, especially after having most of the expensive stuff in redux selectors already using memoization techniques from the fantastic `reselect` library.
 
