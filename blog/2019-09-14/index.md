@@ -22,7 +22,7 @@ The code analysis focused on the number of imports of each lodash function our m
 
 #### get and getOr
 
-This may come at a suprise, but we use `get` & `getor` a lot. They are by far the most used lodash functions in our codebase. These are nice getters functions that allows to define a path for an attribute in a simple of complex object and retrieve the value.
+This may come at a suprise, but we use `get` & `getor` a lot (close to 200 imports). They are by far the most used lodash functions in our codebase. These are nice getters functions that allows to define a path for an attribute in a simple of complex object and retrieve the value.
 
 ```javascript
 const data = {
@@ -64,7 +64,7 @@ The getters can easily be extracted and shared. Naming those functions is often 
 
 #### flow
 
-Flow comes next in our list. This is a typical FP tool used for function composition.
+Flow comes next in our list (80 imports). This is a typical FP tool used for function composition.
 
 There are several ways to perform function composition, they are illustrated below with different implementations of the same function composition:
 
@@ -147,9 +147,41 @@ In our codebase, most of our redux selectors and data structure manipulation are
 
 #### negate & friends
 
+`negate` is our fith most imported Lodash function. This is a small surprise for something that dumb.
+
+```javascript
+import { flow, isEmpty, negate } from 'lodash/fp';
+
+const isEven = num => num % 2 == 0;
+const isOdd = negate(isEven);
+const isOddOldWay = num => !isEven(num);
+
+const hasAtLeatOneElement = negate(isEmpty);
+
+const hasAtLeastOneTruePermission = flow(
+  getEnabledPermissionList, // reuse from above :)
+  hasAtLeatOneElement
+);
+```
+
+This is my experience that it's better to build opposite functions based on 
+
 #### map vs reduce vs forEach
 
+48 `map`, 5 `reduce` are 5 `forEach`. Wow I didn't expected to have so few reduces and so many forEach. After close examination, all the `forEach` are justified. If you are not familiar with those, they are the bread and butter of every FP article out there.
+
+`map`usage seems pretty standard to me. The idea of a type transformation (think projection) applied to a list can be applied everywhere. One might wonder why we do not use the native `Array.prototype.map`. Again we don't have a specific rule about it, but Lodash's map applies to object and map collections, can use the builtin `get` style iterator and benefit from the curry/data-last FP combo. Of course it means a lot of unaries easy to name, reuse, test and compose.
+
+`reduce` might a FP star, but in the end, Lodash's utilities, probably often built on top of `reduce` solves most of our use cases. I would still recommend the function for studying. I was expecting that some of the heavy FP recipes that we use might be one day refactored in a high performance unreadable piece of code relying on `reduce` or older fast loop tools, but, after some iterations on performance analysis, none of these have been flagged for a rewrite. Speaking of performance, we have what I would consider a high number of `memoize` imports in the codebase, especially after having most of the expensive stuff in redux selectors already using memoization techniques from the fantastic `reselect` library.
+
+I have a personal hatred for `forEach`. I have countless times seen people use in code interview as a poor's man `map` or `reduce`.
+The indication that it returns `undefined` should hint that something is off. My understanding of the function is that it should used only to manage side effects (and indeed, all of our cases fall into this category after close examination).
+
+In case you are asking yourselve, there are no `while`, `for` or `for of` statements in our project.
+
 #### cond
+
+I already wrote about `cond` [earlier](https://codingwithjs.rocks/blog/better-branching-with-lodash-cond). I really love the function and one might wonder why we only have 10 imports. The number of `if` and ternaries is much much bigger. That can be explained easily by the fact that we have very few complex branching in our code base and the vast majority of them are using cond. Redux's selector still relies on nice old `switch` statements.
 
 #### FP classics (constant, identity, tap, stubTrue, etc.)
 
