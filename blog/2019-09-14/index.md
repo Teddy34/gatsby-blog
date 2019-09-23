@@ -185,7 +185,41 @@ In case you are asking yourselve, there are no `while`, `for` or `for of` statem
 
 I already wrote about `cond` [earlier](https://codingwithjs.rocks/blog/better-branching-with-lodash-cond). I really love the function and one might wonder why we only have 10 imports. The number of `if` and ternaries is much much bigger. That can be explained easily by the fact that we have very few complex branching in our code base and the vast majority of them are using cond. Redux's selector still relies on nice old `switch` statements.
 
-#### FP classics (constant, identity, tap, stubTrue, etc.)
+#### FP specifics (constant, identity, tap, stubTrue, etc.)
+
+Finally there are a list of contenders that can seems very strange for an imperative programmer. These are simple functional wrappers that fit well the API of not only our tools, but all the JS ecosystem and base language.
+
+`constant` returns a function that returns the same value it was created with. Its main role can be found in our `cond` functions. It can easily be replaced by a small arrow functions like `() => 2` but it for me it reduces the cognitive load to have plain english instead of a function expression and helps when talking about code.
+
+```js
+import { cond, constant, identity, stubTrue } from 'lodash/fp';
+
+const takeCorrectBranch = _.cond([
+    [isMainCase, transformDataAccordingly],
+    [isSpecialCase, constant(MY_SPECIAL_VALUE)],
+    [isError, handleError],
+    [stubTrue, identity ] //stubTrue being often renamed as otherwise
+]);
+```
+
+The example above also features `stubTrue` and `identity`. `identity` is used in a variety of situations like with a `filter`, `groupBy` or `sortBy`. Again, these tools can be replaced by simples functions like `() => true` and `val => val` but for the same reasons, we prefer the english term.
+
+Let's close this section by speaking a bit about `tap`. It's bit more complex than the others since an implementation would be `interceptorFunction => input => { interceptorFunction(input); return input; }`. As you can see, it returns a function, that will forward the input (like `identity`), but it will execute the interceptor function with the value before forwarding it. It is used to trigger side effects in compositions like `flow` or in promises chains. We often wrap side effects with `tap` even if they already return their input when we want to signal at the same time that the original data is forwarded and that a side effect is taking place.
+
+```js
+import { flow, tap } from 'lodash/fp';
+
+const addDataToMap = flow(
+  toGeoJson,
+  filter(isUseful),
+  tap(logIt),
+  tap(displayOnMap),
+);
+```
+
+Even though you have no idea how the `toGeoJson`, `isUseful`, `logIt` and `displayOnMap` work, it's easy to get an understanding about what the `addDataToMap` function does and what is its API.
+
+This is more about meaning than code optimization. Adopting a functional attitude (a lodashy one in our case) is a bit hard for newscomers, but once acquired, this can really shine when talking about code.
 
 ### Appendix: whole usage list
 
