@@ -170,7 +170,7 @@ This function is accompagnied by a lost of small utilities that perform also dum
 
 #### map vs reduce vs forEach
 
-48 `map`, 5 `reduce` are 5 `forEach`. Wow I didn't expected to have so few reduces and so many forEach. After close examination, all the `forEach` are justified. If you are not familiar with those, they are the bread and butter of every FP article out there.
+48 `map`, 5 `reduce` are 5 `forEach`. Wow I didn't expected to have so few reduces and so many forEach. After close examination, all the `forEach` are justified. If you are not familiar with those, they are the bread and butter of every FP article out there. One often unquoted benefit is the reduction in bug density due to the avoidance of index manipulation. In the same spirit, the team favors functional tools to perform direct access to specific elements in an array (`head`, `tail`) or array destructuring. But let's go back to our iterators.
 
 `map` usage seems pretty standard to me. The idea of a type transformation (think projection) applied to a list can be applied everywhere. One might wonder why we do not use the native `Array.prototype.map`. Again we don't have a specific rule about it, but Lodash's map applies to object and map collections, can use the builtin `get` style iterator and benefit from the curry/data-last FP combo. Of course it means a lot of unaries easy to name, reuse, test and compose.
 
@@ -187,7 +187,7 @@ I already wrote about `cond` [earlier](https://codingwithjs.rocks/blog/better-br
 
 #### FP specifics (constant, identity, tap, stubTrue, etc.)
 
-Finally there are a list of contenders that can seems very strange for an imperative programmer. These are simple functional wrappers that fit well the API of not only our tools, but all the JS ecosystem and base language.
+Finally there are a list of contenders that can seems very strange for an imperative programmer. These are mostly simple functional wrappers that fit well the API of not only our tools, but all the JS ecosystem and base language. `curry` should need no introduction at this stage (if so, you've missed a link to a nice article in the Lodash... FP section).
 
 `constant` returns a function that returns the same value it was created with. Its main role can be found in our `cond` functions. It can easily be replaced by a small arrow functions like `() => 2` but it for me it reduces the cognitive load to have plain english instead of a function expression and helps when talking about code.
 
@@ -204,7 +204,7 @@ const takeCorrectBranch = _.cond([
 
 The example above also features `stubTrue` and `identity`. `identity` is used in a variety of situations like with a `filter`, `groupBy` or `sortBy`. Again, these tools can be replaced by simples functions like `() => true` and `val => val` but for the same reasons, we prefer the english term.
 
-Let's close this section by speaking a bit about `tap`. It's bit more complex than the others since an implementation would be `interceptorFunction => input => { interceptorFunction(input); return input; }`. As you can see, it returns a function, that will forward the input (like `identity`), but it will execute the interceptor function with the value before forwarding it. It is used to trigger side effects in compositions like `flow` or in promises chains. We often wrap side effects with `tap` even if they already return their input when we want to signal at the same time that the original data is forwarded and that a side effect is taking place.
+Let's close this section by speaking a bit about `tap`. It's bit more complex than the others since an implementation would be `interceptorFunction => input => { interceptorFunction(input); return input; }`. As you can see, it returns a function, that will forward the input (like `identity`), but it will execute the interceptor function with the value before forwarding it. It is used to trigger side effects in compositions like `flow` or in promises chains. We often wrap side effects with `tap` even if they already return their input when we want to signal at tthat the original data is forwarded and/or that a side effect is taking place.
 
 ```js
 import { flow, tap } from 'lodash/fp';
@@ -219,11 +219,13 @@ const addDataToMap = flow(
 
 Even though you have no idea how the `toGeoJson`, `isUseful`, `logIt` and `displayOnMap` work, it's easy to get an understanding about what the `addDataToMap` function does and what is its API.
 
-This is more about meaning than code optimization. Adopting a functional attitude (a lodashy one in our case) is a bit hard for newscomers, but once acquired, this can really shine when talking about code.
+### Conclusion
+
+Our global Lodash usage reflects a lot of how our team thinks and solves technical problems. We use a functional programming style to favor meaning over absolute code performance (which is tackled by other means). Adopting a the language (a lodashy one in our case) is a bit hard for newscomers coming from an imperative world, but once acquired, it provides great benefits for maintability, analysis and team communication.
 
 ### Appendix: whole usage list
 
-88 different usages
+Here is the whole list of our lodash function imports in one of our Front-End codebase. If you interested in some that I didn't cover, feel free to contact me.
 
 | name           | count |
 | -------------- | ----- |
