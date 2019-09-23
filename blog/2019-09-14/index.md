@@ -6,23 +6,23 @@ tags: ['WebDev', 'FP', 'lodash']
 banner: "/assets/bg/newyork.jpg"
 ---
 
-My current project is completing his third year. From the start, we've been using aggressively the Lodash FP library through our whole JS & TS codebase, whether it's on the Back-End or Front-End. I recently performed a small analysis about our usage of the library in order to spot some weird usages that have slipped through code reviews and make a small retrospective about how this tool and functional programming are used in a mature production app.
+My current project is completing his third year. From the start, we've been using aggressively the Lodash FP library through our whole JS & TS codebase, whether it's on the Back-End or Front-End. I recently performed a small analysis about our usage of the library to spot some weird usages that have slipped through code reviews and make a small retrospective about how this tool and functional programming are used in a mature production app.
 
-The results of the analysis where sometimes suprising as some of the sanctified FP tools show little usage on our side, while some lesser or more basic usages are widely popular. Let's dig in after a small digression about the lib itself.
+The results of the analysis were sometimes surprising as some of the sanctified FP tools show little usage on our side, while some lesser or more basic usages are widely popular. Let's dig in after a small digression about the lib itself.
 
 ### Lodash... FP?
 
-Lodash (https://lodash.com/) is a widely used library in the JavaScript ecosystem. It provides invaluable algorithmic tools that can save developpers lines of code, time and bugs. Its less known brother is lodash/FP. As per the documentation this build is providing "immutable auto-curried iteratee-first data-last methods.". If those terms are a bit complex to you, [this chapter of this great book](https://github.com/MostlyAdequate/mostly-adequate-guide/blob/master/ch04.md) whill provide some invaluable lessons.
+Lodash (https://lodash.com/) is a widely used library in the JavaScript ecosystem. It provides invaluable algorithmic tools that can save developers lines of code, time and bugs. Its less known brother is lodash/FP. As per the documentation, this build is providing "immutable auto-curried iteratee-first data-last methods.". If those terms are a bit complex to you, [this chapter of this great book](https://github.com/MostlyAdequate/mostly-adequate-guide/blob/master/ch04.md) will provide some invaluable lessons.
 
-This lib is not the only one contender in the FP world but our team chose it because it's much easier to train new team members with it.
+This lib is not the only contender in the FP world but our team chose it because it's much easier to train new team members with it.
 
 ### So, what are the biggest contenders
 
-The code analysis focused on the number of imports of each lodash function our main Web App. This is less precise that couting the number of usages of each function but this still gives a good representation about our usage. We grouped some of the function together as they share a common role. 
+The code analysis focused on the number of imports of each Lodash function our main Web App. This is less precise than counting the number of usages of each function but this still gives a good representation of our usage. We grouped some of the function as they share a common role. 
 
 #### get and getOr
 
-This may come at a suprise, but we use `get` & `getor` a lot (close to 200 imports). They are by far the most used lodash functions in our codebase. These are nice getters functions that allows to define a path for an attribute in a simple of complex object and retrieve the value.
+This may come at a surprise, but we use `get` & `getor` a lot (close to 200 imports). They are by far the most used Lodash functions in our codebase. These are nice getters functions that allow to define a path for an attribute in a simple or complex object and retrieve the value.
 
 ```javascript
 const data = {
@@ -37,7 +37,7 @@ const b = get('a.b', data); // FP variant puts the data as last argument (and th
 console.log(b); // 1
 ```
 
-The first reaction to all newcomers is a big "Meh", but after a short time, team members usually adopt it massively. I personally have always been doubtful with "advanced" accessors until I came accross lodash's (probably because most of the accessors I saw in the past were used to perform side effects). We don't have a specific policy to access all attributes like that, but it makes a lot of sense when using the FP variant of Lodash and a pointfree style. These two functions have two pros for me and one con:
+The first reaction to all newcomers is a big "Meh", but after a short time, team members usually adopt it massively. I have always been doubtful with "advanced" accessors until I came across Lodash's (probably because most of the accessors I saw in the past were used to perform side effects). We don't have a specific policy to access all attributes like that, but it makes a lot of sense when using the FP variant of Lodash and a point-free style. These two functions have two pros for me and one con:
 
 * Con: typing attribute path inside a string always raises a warning in my heart. The linter is usually powerless to help us against a typo although TypeScript can perform some nice type inference. In our team, most of the `get` & `getOr` usages can be found either in redux selectors (where we have 100% test coverage policy) or in React components. Our experience is that years of usage of these functions did not translate the risks highlighted above into bugs.
 
