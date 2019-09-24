@@ -8,7 +8,7 @@ banner: "/assets/bg/newyork.jpg"
 
 My current project is completing his third year. From the start, we've been using aggressively the Lodash FP library through our whole JS & TS codebase, whether it's on the Back-End or Front-End. I recently performed a small analysis about our usage of the library to spot some weird usages that have slipped through code reviews and make a small retrospective about how this tool and functional programming are used in a mature production app.
 
-The results of the analysis were sometimes surprising as some of the sanctified FP tools show little usage on our side, while some lesser or more basic usages are widely popular. Let's dig in after a small digression about the lib itself.
+The results of the analysis were sometimes surprising as some of the sanctified FP tools show little usage on our side, while some lesser known or more basic functions are widely popular. Let's dig in after a small digression about the lib itself.
 
 ### Lodash... FP?
 
