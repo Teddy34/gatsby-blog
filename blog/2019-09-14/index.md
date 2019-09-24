@@ -12,7 +12,7 @@ The results of the analysis were sometimes surprising as some of the sanctified 
 
 ### Lodash... FP?
 
-Lodash (https://lodash.com/) is a widely used library in the JavaScript ecosystem. It provides invaluable algorithmic tools that can save developers lines of code, time and bugs. Its less known brother is lodash/FP. As per the documentation, this build is providing "immutable auto-curried iteratee-first data-last methods.". If those terms are a bit complex to you, [this chapter of this great book](https://github.com/MostlyAdequate/mostly-adequate-guide/blob/master/ch04.md) will provide some invaluable lessons.
+Lodash (https://lodash.com/) is a widely used library in the JavaScript ecosystem. It provides invaluable algorithmic tools that can save developers lines of code, time and bugs. Its less known brother is Lodash/FP. As per the documentation, this build is providing "immutable auto-curried iteratee-first data-last methods.". If those terms are a bit complex to you, [this chapter of this great book](https://github.com/MostlyAdequate/mostly-adequate-guide/blob/master/ch04.md) will provide some invaluable lessons.
 
 This lib is not the only contender in the FP world but our team chose it because it's much easier to train new team members with it.
 
@@ -43,7 +43,7 @@ The first reaction to all newcomers is a big "Meh", but after a short time, team
 
 * Pro: They provide safeguards against a null or undefined value in the middle of your chain. The [Optional Chaining](https://github.com/tc39/proposal-optional-chaining) EcmaScript proposal is about to nullify this pro. This has been very valuable for us, especially in conjunction with GraphQL where graph queries can easily return nulls.
 
-* Pro: The FP variant of these functions really shines. Using builtin currying & reverse order of arguments, we can build easy to write and use getters around our code:
+* Pro: The FP variant of these functions shines. Using builtin currying & reverse order of arguments, we can build easy to write and use getters around our code:
 
 ```javascript
 import { get } from 'lodash/fp';
@@ -60,7 +60,7 @@ const getB = get('a.b');
 console.log(getB(data)); // 1
 ```
 
-The getters can easily be extracted and shared. Naming those functions is often very valuable to abstract deep attribute access in datastructures (think `getUserNameFromToken`). This currying usage also lead to building many unary functions (functions that takes only one argument) that are fantastic for function composition. It then does not come as a surprise that `flow`, a function composition tool is the second most used lodash function in our code base.
+The getters can easily be extracted and shared. Naming those functions is often very valuable to abstract deep attribute access in data structures (think `getUserNameFromToken`). This currying usage also leads to building many unary functions (functions that take only one argument) that are fantastic for function composition. It then does not come as a surprise that `flow`, a function composition tool is the second most used Lodash function in our code base.
 
 #### flow
 
@@ -83,9 +83,9 @@ const composeWithLodashFlow = _.flow(baz, bar, foo); // also pipe
 
 ```
 
-Compose is often the classic tool for people coming from a FP background as it reads in the same way as the manual composition, but flow reads more sequentially left to right and is therefore the first choice of all other people. It also reads the same way as a promise chain. The team made an early decision in favor of flow.
+Compose is often the classic tool for people coming from an FP background as it reads in the same way as the manual composition, but flow reads more sequentially left to right and is, therefore, the first choice of all other people. It also reads the same way as a promise chain. The team made an early decision in favor of flow.
 
-These tools are the best friend of point free functional programming adepts. They work with unaries (see where we're going...) and enable to write very readable and pure functions:
+These tools are the best friend of point-free functional programming adepts. They work with unaries (see where we're going...) and enable to write very readable and pure functions:
 
 ```javascript
 import { capitalize, filter, flow, get, map } from 'lodash/fp';
@@ -139,15 +139,15 @@ console.log(getUpperCasePermissionList(userToken)); // ["SERVICEA", "SERVICEC"]
 
 ```
 
-If you compare to chained APIs, this is incredibely superior. Each piece is testable individually and you can build and name intermediate functions to represent business concepts. Sometimes we use such a business name to convey meaning to very simple operations. We have no general rule about when to use a writing style that shows the reader how an operation is performed (`map('propertyA')`) or one that shows its meaning and abstracts the implementation (`const formatForUI = capitalize`).
+If you compare to chained APIs, this is incredibly superior. Each piece is testable individually and you can build and name intermediate functions to represent business concepts. Sometimes we use such a business name to convey meaning to very simple operations. We have no general rule about when to use a writing style that shows the reader how an operation is performed (`map('propertyA')`) or one that shows its meaning and abstracts the implementation (`const formatForUI = capitalize`).
 
-Although it's not mandatory to use pure functions, they provide a lot of benefits. First it's more testable and reusable but it also enables things like memoization to boost performance.
+Although it's not mandatory to use pure functions, they provide a lot of benefits. First, it's more testable and reusable but it also enables things like memoization to boost performance.
 
-In our codebase, most of our redux selectors and data structure manipulation are built using flow. Everytime an operation is expensive, the resulting function is wrapped with caching (using lodash's memoize, redux's reselect or react memoization tools).
+In our codebase, most of our redux selectors and data structure manipulation are built using flow. Every time an operation is expensive, the resulting function is wrapped with caching (using Lodash's memoize, redux's reselect or react memoization tools).
 
 #### negate & friends
 
-`negate` is our fith most imported Lodash function. This is a small surprise for something that dumb.
+`negate` is our fifth most imported Lodash function. This is a small surprise for something that dumb.
 
 ```javascript
 import { flow, isEmpty, negate } from 'lodash/fp';
@@ -164,32 +164,32 @@ const hasAtLeastOneTruePermission = flow(
 );
 ```
 
-This is my experience that it's better to build opposite functions based on only one implementation. In imperative programming, a small `!`  is often used, but as we are manipulating functions, having a function that wraps another one and returns the opposite boolean is very useful. Classic point free style bonus, it also reads very well and is hard to typo.
+This is my experience that it's better to build opposite functions based on only one implementation. In imperative programming, a small `!`  is often used, but as we are manipulating functions, having a function that wraps another one and returns the opposite boolean is very useful. Classic point-free style bonus, it also reads very well and is hard to typo.
 
-This function is accompagnied by a lost of small utilities that perform also dumb things like `eq`, `isNull`, `isNil`, and others. The spirit is the same. By the same occasion, we stopped spending time of the best way to detect `null` from `undefined` or checking is a number is really a number. Time is better spent elsewhere, believe me...
+This function is accompanied by a lot of small utilities that perform also dumb things like `eq`, `isNull`, `isNil`, and others. The spirit is the same. By the same occasion, we stopped spending time on the best way to detect `null` from `undefined` or checking is a number is really a number. Time is better spent elsewhere, believe me...
 
 #### map vs reduce vs forEach
 
-48 `map`, 5 `reduce` are 5 `forEach`. Wow I didn't expected to have so few reduces and so many forEach. After close examination, all the `forEach` are justified. If you are not familiar with those, they are the bread and butter of every FP article out there. One often unquoted benefit is the reduction in bug density due to the avoidance of index manipulation. In the same spirit, the team favors functional tools to perform direct access to specific elements in an array (`head`, `tail`) or array destructuring. But let's go back to our iterators.
+48 `map`, 5 `reduce` are 5 `forEach`. Wow, I didn't expect to have so few reduces and so many forEach. After close examination, all the `forEach` are justified. If you are not familiar with those, they are the bread and butter of every FP article out there. One often unquoted benefit is the reduction in bug density due to the avoidance of index manipulation. In the same spirit, the team favors functional tools to perform direct access to specific elements in an array (`head`, `tail`) or array destructuring. But let's go back to our iterators.
 
-`map` usage seems pretty standard to me. The idea of a type transformation (think projection) applied to a list can be applied everywhere. One might wonder why we do not use the native `Array.prototype.map`. Again we don't have a specific rule about it, but Lodash's map applies to object and map collections, can use the builtin `get` style iterator and benefit from the curry/data-last FP combo. Of course it means a lot of unaries easy to name, reuse, test and compose.
+`map` usage seems pretty standard to me. The idea of a type transformation (think projection) applied to a list can be applied everywhere. One might wonder why we do not use the native `Array.prototype.map`. Again we don't have a specific rule about it, but Lodash's map applies to object and map collections, can use the builtin `get` style iterator and benefit from the curry/data-last FP combo. Of course, it means a lot of unaries easy to name, reuse, test and compose.
 
-`reduce` might a FP star, but in the end, Lodash's utilities, probably often built on top of `reduce` solves most of our use cases. I would still recommend the function for studying. I was expecting that some of the heavy FP recipes that we use might be one day refactored in a high performance unreadable piece of code relying on `reduce` or older fast loop tools, but, after some iterations on performance analysis, none of these have been flagged for a rewrite. Speaking of performance, we have what I would consider a high number of `memoize` imports in the codebase, especially after having most of the expensive stuff in redux selectors already using memoization techniques from the fantastic `reselect` library.
+`reduce` might an FP star, but in the end, Lodash's utilities, probably often built on top of `reduce` solves most of our use cases. I would still recommend the function for studying purposes. I was expecting that some of the heavy FP recipes that we use might be one day refactored in a high-performance unreadable piece of code relying on `reduce` or older fast loop tools, but, after some iterations on performance analysis, none of these have been flagged for a rewrite. Speaking of performance, we have what I would consider a high number of `memoize` imports in the codebase, especially after having most of the expensive stuff in redux selectors already using memoization techniques from the fantastic `reselect` library.
 
 I have a personal hatred for `forEach`. I have countless times seen people use in code interview as a poor's man `map` or `reduce`.
-The indication that it returns `undefined` should hint that something is off. My understanding of the function is that it should used only to manage side effects (and indeed, all of our cases fall into this category after close examination).
+The indication that it returns `undefined` should hint that something is off. My understanding of the function is that it should be used only to manage side effects (and indeed, all of our cases fall into this category after close examination).
 
-In case you are asking yourselve, there are no `while`, `for` or `for of` statements in our project.
+In case you are asking yourselves, there is no `while`, `for` or `for of` statements in our project.
 
 #### cond
 
-I already wrote about `cond` [earlier](https://codingwithjs.rocks/blog/better-branching-with-lodash-cond). I really love the function and one might wonder why we only have 10 imports. The number of `if` and ternaries is much much bigger. That can be explained easily by the fact that we have very few complex branching in our code base and the vast majority of them are using cond. Redux's selector still relies on nice old `switch` statements.
+I already wrote about `cond` [earlier](https://codingwithjs.rocks/blog/better-branching-with-lodash-cond). I love the function and one might wonder why we only have 10 imports. The number of `if` and ternaries is much much bigger. That can be explained easily by the fact that we have very few complex branching in our codebase and the vast majority of them are using cond. Redux's selector still relies on nice old `switch` statements.
 
 #### FP specifics (constant, identity, tap, stubTrue, etc.)
 
-Finally there are a list of contenders that can seems very strange for an imperative programmer. These are mostly simple functional wrappers that fit well the API of not only our tools, but all the JS ecosystem and base language. `curry` should need no introduction at this stage (if so, you've missed a link to a nice article in the Lodash... FP section).
+Finally, there is a list of contenders that can seem very strange for an imperative programmer. These are mostly simple functional wrappers that fit well the API of not only our tools but all the JS ecosystem and base language. `curry` should need no introduction at this stage (if so, you've missed a link to a nice article in the Lodash... FP section).
 
-`constant` returns a function that returns the same value it was created with. Its main role can be found in our `cond` functions. It can easily be replaced by a small arrow functions like `() => 2` but it for me it reduces the cognitive load to have plain english instead of a function expression and helps when talking about code.
+`constant` returns a function that returns the same value it was created with. Its main role can be found in our `cond` functions. It can easily be replaced by a small arrow function like `() => 2` but it for me it reduces the cognitive load to have plain English instead of a function expression and helps when talking about code.
 
 ```js
 import { cond, constant, identity, stubTrue } from 'lodash/fp';
@@ -202,9 +202,9 @@ const takeCorrectBranch = _.cond([
 ]);
 ```
 
-The example above also features `stubTrue` and `identity`. `identity` is used in a variety of situations like with a `filter`, `groupBy` or `sortBy`. Again, these tools can be replaced by simples functions like `() => true` and `val => val` but for the same reasons, we prefer the english term.
+The example above also features `stubTrue` and `identity`. `identity` is used in a variety of situations like with a `filter`, `groupBy` or `sortBy`. Again, these tools can be replaced by simples functions like `() => true` and `val => val` but for the same reasons, we prefer the English term.
 
-Let's close this section by speaking a bit about `tap`. It's bit more complex than the others since an implementation would be `interceptorFunction => input => { interceptorFunction(input); return input; }`. As you can see, it returns a function, that will forward the input (like `identity`), but it will execute the interceptor function with the value before forwarding it. It is used to trigger side effects in compositions like `flow` or in promises chains. We often wrap side effects with `tap` even if they already return their input when we want to signal at tthat the original data is forwarded and/or that a side effect is taking place.
+Let's close this section by speaking a bit about `tap`. It's bit more complex than the others since an implementation would be `interceptorFunction => input => { interceptorFunction(input); return input; }`. As you can see, it returns a function, that will forward the input (like `identity`), but it will execute the interceptor function with the value before forwarding it. It is used to trigger side effects in compositions like `flow` or in promises chains. We often wrap side effects with `tap` even if they already return their input when we want to signal at that the original data is forwarded and/or that a side effect is taking place.
 
 ```js
 import { flow, tap } from 'lodash/fp';
@@ -221,11 +221,11 @@ Even though you have no idea how the `toGeoJson`, `isUseful`, `logIt` and `displ
 
 ### Conclusion
 
-Our global Lodash usage reflects a lot of how our team thinks and solves technical problems. We use a functional programming style to favor meaning over absolute code performance (which is tackled by other means). Adopting a the language (a lodashy one in our case) is a bit hard for newscomers coming from an imperative world, but once acquired, it provides great benefits for maintability, analysis and team communication.
+Our global Lodash usage reflects a lot of how our team thinks and solves technical problems. We use a functional programming style to favor meaning over absolute code performance (which is tackled by other means). Adopting the language (a lodashy one in our case) is a bit hard for newcomers coming from an imperative world, but once acquired, it provides great benefits for maintainability, analysis, and team communication.
 
 ### Appendix: whole usage list
 
-Here is the whole list of our lodash function imports in one of our Front-End codebase. If you interested in some that I didn't cover, feel free to contact me.
+Here is the whole list of our Lodash function imports in one of our Front-End codebase. If you interested in some that I didn't cover, feel free to contact me.
 
 | name           | count |
 | -------------- | ----- |
