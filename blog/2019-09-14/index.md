@@ -6,23 +6,23 @@ tags: ['WebDev', 'FP', 'lodash']
 banner: "/assets/bg/newyork.jpg"
 ---
 
-My current project is completing his third year. From the start, we've been using aggressively the Lodash FP library through our whole JS & TS codebase, whether it's on the Back-End or Front-End. I recently performed a small analysis about our usage of the library to spot some weird usages that have slipped through code reviews and make a small retrospective about how this tool and functional programming are used in a mature production app.
+My current project is completing its third year. From the start, we've been using aggressively the Lodash FP library through our whole JS & TS codebase, whether it's on the Back-End or Front-End. I recently performed a small analysis about our usage of the library to spot some weird usages that have slipped through code reviews and make a small retrospective about how this tool and functional programming are used in a mature production app.
 
-The results of the analysis were sometimes surprising as some of the sanctified FP tools show little usage on our side, while some lesser known or more basic functions are widely popular. Let's dig in after a small digression about the lib itself.
+The results of the analysis were sometimes surprising as some of the sanctified FP tools show little usage on our side, while some lesser-known or more basic functions are widely popular. Let's dig in after a small digression about the lib itself.
 
 ### Lodash... FP?
 
-Lodash (https://lodash.com/) is a widely used library in the JavaScript ecosystem. It provides invaluable algorithmic tools that can save developers lines of code, time and bugs. Its less known brother is Lodash/FP. As per the documentation, this build is providing "immutable auto-curried iteratee-first data-last methods.". If those terms are a bit complex to you, [this chapter of this great book](https://github.com/MostlyAdequate/mostly-adequate-guide/blob/master/ch04.md) will provide some invaluable lessons.
+Lodash (https://lodash.com/) is a widely used library in the JavaScript ecosystem. It provides invaluable algorithmic tools that can save developers lines of code, time and bugs. Its less known sibling is Lodash/FP. As per the documentation, this build is providing "immutable auto-curried iteratee-first data-last methods.". If those terms are a bit complex to you, [this chapter of this great book](https://github.com/MostlyAdequate/mostly-adequate-guide/blob/master/ch04.md) will provide some invaluable lessons.
 
-This lib is not the only contender in the FP world but our team chose it because it's much easier to train new team members with it.
+This lib is not the only contender nor the most advanced in the FP world but our team chose it because it's much easier to train new team members with it. Most JS software developers have some experience with Lodash or Underscore and very few are familiar with the concepts behind Ramda or Pointfree-fantasy.
 
 ### So, what are the biggest contenders
 
-The code analysis focused on the number of imports of each Lodash function our main Web App. This is less precise than counting the number of usages of each function but this still gives a good representation of our usage. We grouped some of the function as they share a common role. 
+The code analysis focused on the number of imports of each Lodash function our main Web App. This is less precise than counting the number of usages of each function but this still gives a good representation of our usage. We grouped some of the function as they share a common role.
 
 #### get and getOr
 
-This may come at a surprise, but we use `get` & `getor` a lot (close to 200 imports). They are by far the most used Lodash functions in our codebase. These are nice getters functions that allow to define a path for an attribute in a simple or complex object and retrieve the value.
+This may come at a surprise, but we use `get` & `getor` a lot (close to 200 imports with usually a lot of usage per import). They are by far the most used Lodash functions in our codebase. These are nice getters functions that allow to define a path for an attribute in a simple or complex object and retrieve the value.
 
 ```javascript
 const data = {
@@ -32,18 +32,19 @@ const data = {
   c: 2
 };
 
-const b = get('a.b', data); // FP variant puts the data as last argument (and this is great)
+// FP variant puts the data as last argument (and this is great)
+const b = get('a.b', data);
 
 console.log(b); // 1
 ```
 
-The first reaction to all newcomers is a big "Meh", but after a short time, team members usually adopt it massively. I have always been doubtful with "advanced" accessors until I came across Lodash's (probably because most of the accessors I saw in the past were used to perform side effects). We don't have a specific policy to access all attributes like that, but it makes a lot of sense when using the FP variant of Lodash and a point-free style. These two functions have two pros for me and one con:
+The first reaction to all newcomers is a big "Meh", but after a short time, team members usually adopt it massively. I have always been doubtful with "advanced" accessors until I came across Lodash's (probably because most of the accessors I saw in the past were used to perform side effects). We don't have a specific policy to access all attributes like that, but it makes a lot of sense when using the FP variant of Lodash and a point-free style. These two functions have two pros and one con:
 
-* Con: typing attribute path inside a string always raises a warning in my heart. The linter is usually powerless to help us against a typo although TypeScript can perform some nice type inference. In our team, most of the `get` & `getOr` usages can be found either in redux selectors (where we have 100% test coverage policy) or in React components. Our experience is that years of usage of these functions did not translate the risks highlighted above into bugs.
+* Con: typing attribute path inside a string always raises a warning in my heart. The linter is usually powerless to help us against a typo although TypeScript can perform some nice type inference. In our team, most of the `get` & `getOr` usages can be found either in redux selectors (where we have 100% test coverage policy) or in React components. Our experience is that years of usage of these functions did not translate the risk highlighted above into bugs.
 
 * Pro: They provide safeguards against a null or undefined value in the middle of your chain. The [Optional Chaining](https://github.com/tc39/proposal-optional-chaining) EcmaScript proposal is about to nullify this pro. This has been very valuable for us, especially in conjunction with GraphQL where graph queries can easily return nulls.
 
-* Pro: The FP variant of these functions shines. Using builtin currying & reverse order of arguments, we can build easy to write and use getters around our code:
+* Pro: The FP variant of these functions shines. Using builtin currying & reverse order of arguments, we can build easy to write and use getters around our code. To that purpose, we only have to call the `get` function with only the path as argument. It will return a nice function that can take any kind of compatible data structure.
 
 ```javascript
 import { get } from 'lodash/fp';
@@ -51,22 +52,23 @@ import { get } from 'lodash/fp';
 const data = {
   a: {
     b : 1
-  },
-  c: 2
+  }
 };
 
+// Here we put the currying into practice to build a getter function.
 const getB = get('a.b');
 
+// The function only need the last argument to be executed. This is why we like data-last functions.
 console.log(getB(data)); // 1
 ```
 
-The getters can easily be extracted and shared. Naming those functions is often very valuable to abstract deep attribute access in data structures (think `getUserNameFromToken`). This currying usage also leads to building many unary functions (functions that take only one argument) that are fantastic for function composition. It then does not come as a surprise that `flow`, a function composition tool is the second most used Lodash function in our code base.
+The getters can easily be extracted and shared. Naming those functions is often very valuable to abstract deep attribute access in data structures (think `getUserNameFromToken`). Its curry feature also leads to building many unary functions (functions that take only one argument) that are fantastic for function composition. It then does not come as a surprise that `flow`, a function composition tool is the second most used Lodash function in our code base.
 
 #### flow
 
-Flow comes next in our list (80 imports). This is a typical FP tool used for function composition.
+Flow comes next in our list (80 imports). This is a typical FP tool used for function composition (aka function centipede).
 
-There are several ways to perform function composition, they are illustrated below with different implementations of the same function composition:
+There are several ways to perform function composition, they are illustrated below with different implementations of the same function:
 
 ```javascript
 
@@ -83,7 +85,7 @@ const composeWithLodashFlow = _.flow(baz, bar, foo); // also pipe
 
 ```
 
-Compose is often the classic tool for people coming from an FP background as it reads in the same way as the manual composition, but flow reads more sequentially left to right and is, therefore, the first choice of all other people. It also reads the same way as a promise chain. The team made an early decision in favor of flow.
+`compose` is often the classic tool for people coming from an FP background as it reads in the same way as the manual composition, but flow reads sequentially left to right and is, therefore, the first choice of all other people. It also reads the same way as a promise chain. The team made an early decision in favor of flow.
 
 These tools are the best friend of point-free functional programming adepts. They work with unaries (see where we're going...) and enable to write very readable and pure functions:
 
@@ -128,14 +130,13 @@ const getEnabledPermissionList2 = flow(
   mapNames
 );
 
-// Flow composes also nicely
+// Flow composes also nicely into other flows
 const getUpperCasePermissionList = flow(
   getUserPermissionList,
   capitalize
 );
 
 console.log(getUpperCasePermissionList(userToken)); // ["SERVICEA", "SERVICEC"]
-
 
 ```
 
@@ -147,7 +148,7 @@ In our codebase, most of our redux selectors and data structure manipulation are
 
 #### negate & friends
 
-`negate` is our fifth most imported Lodash function. This is a small surprise for something that dumb.
+`negate` is our fifth most imported Lodash function. This can look original for something that dumb.
 
 ```javascript
 import { flow, isEmpty, negate } from 'lodash/fp';
