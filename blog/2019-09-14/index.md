@@ -3,7 +3,7 @@ date: "2019-09-14"
 title: "Lodash FP usage retrospective"
 category: "lodash"
 tags: ['WebDev', 'FP', 'lodash']
-banner: "/assets/bg/newyork.jpg"
+banner: "/assets/bg/newjersey.jpg"
 ---
 
 My current project is completing its third year. From the start, we've been using aggressively the Lodash FP library through our whole JS & TS codebase, whether it's on the Back-End or Front-End. I recently performed a small analysis about our usage of the library to spot some weird usages that have slipped through code reviews and make a small retrospective about how this tool and functional programming are used in a mature production app.
@@ -58,7 +58,8 @@ const data = {
 // Here we put the currying into practice to build a getter function.
 const getB = get('a.b');
 
-// The function only need the last argument to be executed. This is why we like data-last functions.
+// The function only need the last argument to be executed. 
+// This is why we like data-last functions.
 console.log(getB(data)); // 1
 ```
 
@@ -136,7 +137,8 @@ const getUpperCasePermissionList = flow(
   capitalize
 );
 
-console.log(getUpperCasePermissionList(userToken)); // ["SERVICEA", "SERVICEC"]
+console.log(getUpperCasePermissionList(userToken)); 
+// ["SERVICEA", "SERVICEC"]
 
 ```
 
@@ -199,7 +201,7 @@ const takeCorrectBranch = _.cond([
     [isMainCase, transformDataAccordingly],
     [isSpecialCase, constant(MY_SPECIAL_VALUE)],
     [isError, handleError],
-    [stubTrue, identity ] //stubTrue being often renamed as otherwise
+    [stubTrue, identity ] //stubTrue being often renamed as `otherwise`
 ]);
 ```
 
