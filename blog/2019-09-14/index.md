@@ -216,7 +216,7 @@ const addDataToMap = flow(
   toGeoJson,
   filter(isUseful),
   tap(logIt),
-  tap(displayOnMap),
+  tap(displayOnMap)
 );
 ```
 
