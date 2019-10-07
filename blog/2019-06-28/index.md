@@ -1,7 +1,7 @@
 ---
 date: "2019-06-28"
 title: "Better branching with Lodash _.cond"
-category: "Code Utilities"
+category: "Lodash"
 tags: ['Lodash', 'FP']
 banner: "/assets/bg/pointe-sable-maurice2.jpg"
 ---
