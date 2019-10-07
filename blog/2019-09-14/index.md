@@ -86,7 +86,7 @@ const composeWithLodashFlow = _.flow(baz, bar, foo); // also pipe
 
 ```
 
-`compose` is often the classic tool for people coming from an FP background as it reads in the same way as the manual composition, but flow reads sequentially left to right and is, therefore, the first choice of all other people. It also reads the same way as a promise chain. The team made an early decision in favor of flow.
+`compose` is often the classic tool for people coming from an FP background as it reads in the same way as the manual composition, but `flow` reads sequentially left to right and is, therefore, the first choice of all other people. It also reads the same way as a promise chain. The team made an early decision in favor of `flow`.
 
 These tools are the best friend of point-free functional programming adepts. They work with unaries (see where we're going...) and enable to write very readable and pure functions:
 
@@ -146,7 +146,7 @@ If you compare to chained APIs, this is incredibly superior. Each piece is testa
 
 Although it's not mandatory to use pure functions, they provide a lot of benefits. First, it's more testable and reusable but it also enables things like memoization to boost performance.
 
-In our codebase, most of our redux selectors and data structure manipulation are built using flow. Every time an operation is expensive, the resulting function is wrapped with caching (using Lodash's memoize, redux's reselect or react memoization tools).
+In our codebase, most of our redux selectors and data structure manipulation are built using `flow`. Every time an operation is expensive, the resulting function is wrapped with caching (using Lodash's memoize, redux's reselect or react memoization tools).
 
 #### negate & friends
 
