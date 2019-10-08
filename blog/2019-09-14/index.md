@@ -6,7 +6,7 @@ tags: ['WebDev', 'FP', 'lodash']
 banner: "/assets/bg/newjersey.jpg"
 ---
 
-My current project is completing its third year. From the start, we've been using aggressively the Lodash FP library through our whole JS & TS codebase, whether it's on the Back-End or Front-End. I recently performed a small analysis about our usage of the library to spot some weird usages that have slipped through code reviews and make a small retrospective about how this tool and functional programming are used in a mature production app.
+My current project is completing its third year. From the start, we've been using aggressively the Lodash FP library through our whole JS & TS codebase, whether it's on the Back-End or Front-End. I recently performed a small analysis of our usage of the library to spot some weird usages that have slipped through code reviews and make a small retrospective about how this tool and functional programming are used in a mature production app.
 
 The results of the analysis were sometimes surprising as some of the sanctified FP tools show little usage on our side, while some lesser-known or more basic functions are widely popular. Let's dig in after a small digression about the lib itself.
 
@@ -18,7 +18,7 @@ This lib is not the only contender nor the most advanced in the FP world but our
 
 ### So, what are the biggest contenders
 
-The code analysis focused on the number of imports of each Lodash function our main Web App. This is less precise than counting the number of usages of each function but this still gives a good representation of our usage. We grouped some of the function as they share a common role.
+The code analysis focused on the number of imports of each Lodash function our main Web App. This is less precise than counting the number of usages of each function but this still gives a good representation of our usage. We grouped some of the functions as they share a common role.
 
 #### get and getOr
 
@@ -169,7 +169,7 @@ const hasAtLeastOneTruePermission = flow(
 
 This is my experience that it's better to build opposite functions based on only one implementation. In imperative programming, a small `!`  is often used, but as we are manipulating functions, having a function that wraps another one and returns the opposite boolean is very useful. Classic point-free style bonus, it also reads very well and is hard to typo.
 
-This function is accompanied by a lot of small utilities that perform also dumb things like `eq`, `isNull`, `isNil`, and others. The spirit is the same. By the same occasion, we stopped spending time on the best way to detect `null` from `undefined` or checking is a number is really a number. Time is better spent elsewhere, believe me...
+This function is accompanied by a lot of small utilities that perform also dumb things like `eq`, `isNull`, `isNil`, and others. The spirit is the same. On the same occasion, we stopped spending time on the best way to detect `null` from `undefined` or checking is a number is really a number. Time is better spent elsewhere, believe me...
 
 #### map vs reduce vs forEach
 
@@ -190,7 +190,7 @@ I already wrote about `cond` [earlier](https://codingwithjs.rocks/blog/better-br
 
 #### FP specifics (constant, identity, tap, stubTrue, etc.)
 
-Finally, there is a list of contenders that can seem very strange for an imperative programmer. These are mostly simple functional wrappers that fit well the API of not only our tools but all the JS ecosystem and base language. `curry` should need no introduction at this stage (if so, you've missed a link to a nice article in the Lodash... FP section).
+Finally, there is a list of contenders that can seem very strange for an imperative programmer. These are mostly simple functional wrappers that fit well the API of not only our tools but all the JS ecosystem and base language. `curry` should need no introduction at this stage (if so, [you've missed a link to a nice article in the Lodash... FP section](https://github.com/MostlyAdequate/mostly-adequate-guide/blob/master/ch04.md)).
 
 `constant` returns a function that returns the same value it was created with. Its main role can be found in our `cond` functions. It can easily be replaced by a small arrow function like `() => 2` but it for me it reduces the cognitive load to have plain English instead of a function expression and helps when talking about code.
 
@@ -201,7 +201,7 @@ const takeCorrectBranch = _.cond([
     [isMainCase, transformDataAccordingly],
     [isSpecialCase, constant(MY_SPECIAL_VALUE)],
     [isError, handleError],
-    [stubTrue, identity ] //stubTrue being often renamed as `otherwise`
+    [stubTrue, identity] //stubTrue being often renamed as `otherwise`
 ]);
 ```
 
@@ -220,15 +220,15 @@ const addDataToMap = flow(
 );
 ```
 
-Even though you have no idea how the `toGeoJson`, `isUseful`, `logIt` and `displayOnMap` work, it's easy to get an understanding about what the `addDataToMap` function does and what is its API.
+Even though you have no idea how the `toGeoJson`, `isUseful`, `logIt` and `displayOnMap` work, it's easy to get an understanding of what the `addDataToMap` function does and what its API is.
 
 ### Conclusion
 
-Our global Lodash usage reflects a lot of how our team thinks and solves technical problems. We use a functional programming style to favor meaning over absolute code performance (which is tackled by other means). Adopting the language (a lodashy one in our case) is a bit hard for newcomers coming from an imperative world, but once acquired, it provides great benefits for maintainability, analysis, and team communication.
+Our global Lodash usage reflects a lot about how our team thinks and solves technical problems. We use a functional programming style to favor meaning over absolute code performance (which is tackled by other means). Adopting the language (a lodashy one in our case) is a bit hard for newcomers coming from an imperative world, but once acquired, it provides great benefits for maintainability, analysis, and team communication.
 
 ### Appendix: whole usage list
 
-Here is the whole list of our Lodash function imports in one of our Front-End codebase. If you interested in some that I didn't cover, feel free to contact me.
+Here is the whole list of our Lodash function imports in one of our Front-End codebase. If you are interested in some that I didn’t cover, feel free to contact me.
 
 | name           | count |
 | -------------- | ----- |
