@@ -73,7 +73,7 @@ There are several ways to perform function composition, they are illustrated bel
 
 ```javascript
 
-import { flow } from 'lodash/fp';
+import { compose, flow } from 'lodash/fp';
 
 const foo = num => num + 1;
 const bar = num => num * 4;
@@ -81,8 +81,8 @@ const baz = num => num - 1;
 
 // all these functions are equivalent
 const composeManually = data => foo(bar(baz(data)));
-const composeWithLodashCompose = _.compose(foo, bar, baz);
-const composeWithLodashFlow = _.flow(baz, bar, foo); // also pipe
+const composeWithLodashCompose = compose(foo, bar, baz);
+const composeWithLodashFlow = flow(baz, bar, foo); // also pipe
 
 ```
 
