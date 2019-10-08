@@ -22,7 +22,7 @@ The code analysis focused on the number of imports of each Lodash function our m
 
 #### get and getOr
 
-This may come at a surprise, but we use `get` & `getor` a lot (close to 200 imports with usually a lot of usage per import). They are by far the most used Lodash functions in our codebase. These are nice getters functions that allow to define a path for an attribute in a simple or complex object and retrieve the value.
+This may come at a surprise, but we use `get` & `getOr` a lot (close to 200 imports with usually a lot of usage per import). They are by far the most used Lodash functions in our codebase. These are nice getters functions that allow to define a path for an attribute in a simple or complex object and retrieve the value.
 
 ```javascript
 const data = {
