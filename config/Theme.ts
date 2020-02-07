@@ -1,5 +1,6 @@
 const colors = {
-  primary: '#72cc96', // Color for buttons or links
+  primary: 'hsla(144, 47%, 62%, 1)', // Color for buttons or links
+  secondary: 'hsla(144, 47%, 32%, 1)', // Color for buttons or links
   bg: '#fff', // Background color
   white: '#fff',
   grey: {
