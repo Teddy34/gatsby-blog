@@ -90,8 +90,8 @@ export default class IndexPage extends React.Component<PageProps> {
               <HomepageContent>
                 <h2>Hi, I'm J.S.</h2>
                 <p>
-                  Senior Developer at Riaktr, I'm passionate about everything that makes our codebases reliable, readable and fast to ship.
-                  I love the JS language and ecosystem.
+                  Technical Lead at Riaktr, I'm passionate about everything that makes our codebases reliable, readable and fast to ship. I
+                  love the JS language and ecosystem.
                   <br />
                   You will find here some thoughts about web development, software engineering practices and JS in particular.
                 </p>
