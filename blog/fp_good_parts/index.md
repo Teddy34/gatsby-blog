@@ -3,7 +3,7 @@ date: "2029-02-03"
 title: "FP: the Good Parts"
 category: "FP"
 tags: ['FP', 'Lodash']
-banner: "/assets/bg/newjersey.jpg"
+banner: "/assets/bg/vedene.jpg"
 ---
 
 Functional Programming is a trending topic. Is it only hype or really bringing something to programming? How can this help you day today? This article aims at giving you practical ways in which you can improve your codebases using FP style programming.
@@ -11,7 +11,7 @@ Functional Programming is a trending topic. Is it only hype or really bringing s
 ### What is FP?
 It's an alternative way to the more classic Imperative Programming which dominates the market. Usual descriptions of FP are highlighting its "mathematical" aspect and never fail to mention quickly Category Theory, Algebraic data types, Monads and other scary names. Without a basic understanding of many of those concepts, writing a program in one of the strict functional languages (Haskell, Lisp, Elm, etc.) is a difficult task. In practice, FP offers predictability and strong abstractions at the cost of efficiency.
 
-As always in this blog, we're using JavaScript has the base language. Although not a "real" functional language, JavaScript offers a lot of features to write a program using an FP style. We will focus on this article on how to get quickly the best of FP with the cheapest cognitive load.
+As always in this blog, we're using JavaScript has the base language. Although not a ["real" functional language](https://www.youtube.com/watch?v=eetWam3nhoM), JavaScript offers a lot of features to write a program using an FP style. We will focus on this article on how to get quickly the best of FP with the cheapest cognitive load.
 
 #### Write more pure functions
 
