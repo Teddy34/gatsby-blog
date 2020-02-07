@@ -1,8 +1,8 @@
 ---
 date: "2019-06-28"
 title: "Better branching with Lodash _.cond"
-category: "Lodash"
-tags: ['Lodash', 'FP']
+category: "FP"
+tags: ['FP', 'Lodash']
 banner: "/assets/bg/pointe-sable-maurice2.jpg"
 ---
 ### Those nasty branches
