@@ -6,41 +6,47 @@ tags: ['FP', 'Lodash']
 banner: "/assets/bg/vedene.jpg"
 ---
 
-Functional Programming is a trending topic. Is it only hype or really bringing something to programming? How can this help you day today? This article aims at giving you practical ways in which you can improve your codebases using FP style programming.
+Functional Programming is a trending topic. Is it only hype or really bringing value? How can this help you day today? This article aims at giving you practical ways in which you can improve your codebases using FP style programming.
 
-#### What is FP?
-It's an alternative way to the more classic Imperative Programming which dominates the market. Usual descriptions of FP are highlighting its "mathematical" aspect and never fail to mention quickly Category Theory, Algebraic data types, Monads and other scary names. Without a basic understanding of many of those concepts, writing a program in one of the strict functional languages (Haskell, Lisp, Elm, etc.) is a difficult task. In practice, FP offers predictability and strong abstractions at the cost of efficiency.
+#### What is Functional Programming?
+It's an alternative to Imperative Programming which dominates the market. Usual descriptions of FP are highlighting its "mathematical" aspect and never fail to mention quickly Category Theory, Functors, Monads and other scary names. Without a basic understanding of many of those concepts, writing a program in one of the strict functional languages (Haskell, Lisp, Elm, etc.) is a difficult task. In practice, FP offers predictability and strong abstractions at the cost of efficiency.
 
 As always in this blog, we're using JavaScript has the base language. Although not a ["real" functional language](https://www.youtube.com/watch?v=eetWam3nhoM), JavaScript offers a lot of features to write a program using an FP style. We will focus on this article on how to get quickly the best of FP with the cheapest cognitive load.
 
-### Write more pure functions
+### Number one: write more pure functions
 
-Pure functions are the bread-and-butter of FP. A function is pure when given the same input, it produces the same output and performs no side effects. Coupling the output with the input forbids to use things like randomness, closures or current date in our pure function. What are "side effects"? Here are some examples:
+Pure functions are the bread-and-butter of FP. A function is pure when given the same input, it produces the same output and performs no side effects. Coupling the output with the input forbids to use things like randomness, closures or current date in our pure function. Side effects are all changes outside of the scope of your function (displaying on the screen, writing on the filesystem, performing a network call, performing a mutation on an external object).
+
+Here are some examples:
 
 ```javascript
-  // Mutating the input is considered a crime
-  const doStuff = (list, newVal) => list.push(newVal);
+// The output cannot be predicted from the output
+const getNow = () => Date.now();
 
-  //Mutating an internal state is very bad
-  const createFunctionWithState = () => {
-    let internalValue = 1;
-    return () => internalValue++;
+// Side effect: Mutating the input is considered a crime
+const doStuff = (list, newVal) => list.push(newVal);
+
+// Side effect: Mutating an internal state is very bad
+const createFunctionWithState = () => {
+  let internalValue = 1;
+  return () => internalValue++;
+}
+
+// Side effect: Obviously this basic class usage is not pure either.
+class MyClass {
+  constructor(initialVal) {
+    this.internalValue = initialVal;
   }
-
-  //Obviously this base class usage is not pure either.
-  class MyClass {
-    constructor(initialVal) {
-      this.internalValue = initialVal;
-    }
-    setVal(newval) {
-      this.internalValue = newval; 
-    }
+  setVal(newval) {
+    this.internalValue = newval; 
   }
+}
 
-  // Triggering I/O is bad
-  const fetchData = url => fetch(url);
-  // This is technically an I/O so it's bad.
-  const logThis = label => console.log(label);
+// Side effect: Triggering I/O is bad
+const fetchData = url => fetch(url);
+
+// Side effect: This is technically an I/O so it's bad, but not as bad as the previous one
+const logThis = label => console.log(label);
 ```
 
 Pure functions are easy to understand as there is no dark magic happening anywhere. Nothing else has to be considered but the input and the output. Using and reusing the function again can be done with confidence that nothing is going to be affected anywhere in the program. Tests for pure functions should never need any stubbing mechanism, making them very simple to write and maintain. This is of course very suitable for Test Driven Development (the practice of writing tests before implementation).
@@ -49,19 +55,19 @@ All frameworks are compatibles with pure functions and all codebases will benefi
 
 Writing code using more pure functions is very easy to do and will provide great benefits for your code. This is the single best improvement that FP can bring to a codebase.
 
-### Replace manual loops
+### Number two: replace manual loops
 
-FP provides a new set of algorithmics primitives to replace progressively imperative operators such as `for`, `if` or `try-catch`. They favor strongly readability and safety while fitting perfectly in your new pure functions. Let's go through the most useful of them by finding a replacement for our loops. Array.prototype already implements all these functions so we will use it as an example, but the concept works with all kinds of iterables.
+FP provides a new set of algorithmics primitives to replace progressively imperative operators such as `for`, `switch`, `if` or `try-catch`. They favor strongly readability and safety while fitting perfectly in your new pure functions. Let's go through the most useful of them by finding a replacement for your loops. Array.prototype already implements all these functions so we will use it as an example, but the concept works with all kinds of iterables.
 
 #### Filter
 
-One of the most common operations to perform is to loop in a list, to find/remove elements that match some criteria. All of these operations can be reduced to a simple name: filtering. A filter uses two inputs: a list (very often an Array but not necessarily) and a predicate. The predicate is a function (pure of course) that takes an item of the list as input and returns a boolean. Because our filter is pure, it must not mutate the original list but return a new filtered list. The items themselves can be cloned (expensive) or more probably are just referenced (fast) in the new list. The last point would be critical in terms of API with impure code mutating the items, but since we stayed away from impurity, we're safe.
+One of the most common operations to perform is to loop in a list, to find/remove elements that match some criteria. All of these operations can be reduced to a simple name: filtering. A filter uses two inputs: a list (very often an Array but not necessarily) and a predicate. The predicate is a pure function that takes an item of the list as input and returns a boolean. Because our filter is pure, it must not mutate the original list but instead return a new filtered list. The original items themselves can be cloned (expensive) or more probably are just referenced (fast) in the new list.
 
 Here is how Filter will improve the readability of your code. If you see a filter keyword somewhere, you can immediately:
-- be sure that there will never be an index error that is classic with for loops.
+- be sure that there will never be an index handling bug.
 - guess the API of the predicate function, without even looking at a type definition or its code.
 - assume that no other data transformation has been performed.
-- assume that input has not been mutated
+- assume that the input has not been mutated
 - finally, you can skip to the next line because you know what the output will be: a new list of same type items, filtered by some condition that can be usually guessed looking at the name of the predicate.
 
 #### Map
@@ -86,6 +92,32 @@ This is the swiss knife of FP. It would probably be worth a full article about h
 - The second best use is to encapsulate complex imperative (pure) code. This is handy when addressing performance.
 - It improves code readability by highlighting that a pure special operation is performed here. By providing a good name to the iteratee, it can be pretty fantastic to read.
 
+Here are some examples:
+```javascript
+const sumAll = numberList => numberList.reduce(
+  (memo, currentItem) => memo + currentItem, // memo is the return value of the previous iteration ,
+  0 // initial value for the memo
+);
+
+const groupBy = (list, key) => 
+  list.reduce((memo, currentItem) => {
+    const currentItemKeyValue = currentItem[key];
+    if (memo[currentItemKeyValue]) {
+      memo[currentItemKeyValue].push(currentItem); // The function owns the memo, mutation is fine
+    }
+    else {
+      memo[currentItemKeyValue] = [currentItem];
+    }
+    return memo;
+    }, {}
+  );
+
+const getMax = numberList => numberList.reduce(
+  (memo, currentItem) => currentItem > memo? currentItem: memo,
+  -Infinity 
+);
+```
+
 #### ForEach
 
 Some closing words on forEach. It looks like a Map but it returns undefined. The only thing that can, therefore, be done with it is performing side effects (mutations, network calls, logging, etc.). All programs have to deal at some point with side effects and with all our purity oriented refactorings, we have pushed mutation in some very specific places. They are harder to test but their scope has been shrunk, making them more manageable.
@@ -102,9 +134,9 @@ Many other tools can be explored. They almost always have the same characteristi
 
 Using these FP building blocks will improve a lot the readability and maintainability of your codebases. 
 
-### Naming and API is more important than implementation
+### Number three: find better names for your functions
 
-My last Functional Programming advice for this blog post is to improve naming conventions for functions. It's amazing at how pretty much all of the books and online resources repeat this over and over and yet this is one my first comments when reading code.
+My last Functional Programming advice for this blog post is to improve naming conventions for functions. It's amazing at how pretty much all of the books and online resources repeat this over and over and yet this is one my first comments when reading code. 
 
 Here are some basic rules about function naming:
 - it should use a verb to tell us what it will do.
@@ -115,33 +147,38 @@ Here are some basic rules about function naming:
 - it should be maintained over time.
 - if you have trouble naming the function, then its scope is probably incorrect.
 
-An interesting tip that you can use to improve function naming is using aliases. Now let us play a bit with function naming while revisiting some previous items.
+An interesting tip that you can use to improve function naming is using aliases. In the end, good function names and API are more important than implementation.
+
+### Bringing it all together
+
+Now let us play a bit with function naming while revisiting some previous items:
 
 ```javascript
- // Classic data scientist coding style. With a comment on top if you are lucky.
- const result = [];
- for (const e of a) {
- result.push(x(e)[0]);
- }
+// Classic data scientist coding style. With a comment on top if you are lucky.
+const doStuff = (a, result=[]) => {
+  for (let e = 0; e < a.length, e++) {
+    result.push(x(a[e])[0]); //Boom, mutation
+  }
+}
 
  // Improved version that use a basic building block and better names.
- const takeFirst = list => list[0]; // takeFirst is a great FP base tool (also known as head)
- const bestSchoolStudentList =
- classList
- .map(getStudentListSortedByAscendingRank)
- .map(head);
+const takeFirst = list => list[0]; // takeFirst is a great FP base tool (also known as head)
+const getStudents = classList =>
+  classList
+  .map(getStudentListSortedByAscendingRank)
+  .map(head);
 
- // Improved version that aliases the base building block into a business oriented name
- const takeBest = takeFirst //takeFirst is imported from your toolkit.
- const bestSchoolStudentList =
- classList
- .map(getStudentListSortedByAscendingRank)
- .map(takeBest);
+// Improved version that aliases the base building block into a business oriented name
+const takeBest = takeFirst //takeFirst is imported from your toolkit.
+const getBestSchoolStudentList = classList =>
+  classList
+  .map(getStudentListSortedByAscendingRank)
+  .map(takeBest);
 
- // Bonus version using a new functional tool and map's associative properties
- // pipe(a,b) is equivalent to (...args) => b(a(...args)).
- const takeBestStudent = pipe(getStudentListSortedByAscendingRank, takeFirst);
- const bestSchoolStudentList =
- classList
- .map(takeBestStudent)
+// Bonus version using a new functional tool and map's associative properties
+// pipe(a,b) is equivalent to (...args) => b(a(...args)).
+const takeBestStudent = pipe(getStudentListSortedByAscendingRank, takeFirst);
+const getBestSchoolStudentList = classList =>
+  classList
+    .map(takeBestStudent);
 ```
