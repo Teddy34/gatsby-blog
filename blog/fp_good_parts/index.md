@@ -144,6 +144,8 @@ const getMax = numberList => numberList.reduce(
 Some closing words on forEach. It looks like a Map but it returns undefined. The only thing that can, therefore, be done with it is performing side effects (mutations, network calls, logging, etc.). All programs have to deal at some point with side effects and with all our purity oriented refactorings, we have pushed mutation in some very specific places. They are harder to test but their scope has been shrunk, making them more manageable.
 
 - If you see a forEach, that should trigger a purity alert. An interesting property to mention here is that a pure function can only use pure functions. The stain of impurity propagates upward and therefore a function executing a forEach is impure.
+- This marks the end of a chain of pure operations to actually do something.
+- The side effect in itself has been isolated into a function. It's testable separately.
 - There are other advanced ways to manage side effects in FP but this would bring us to some scary FP words.
 
 #### Assemble these building blocks to solve problems
@@ -154,7 +156,7 @@ To send a newsletter to users that have accepted it. It's easy to describe the r
 userList
   .filter(isUserInterestedByNewsletter)
   .map(getEmailFromUser)
-  .forEach(sendNewletterByEmail)
+  .forEach(sendNewlettersByEmail)
 ```
 
 
