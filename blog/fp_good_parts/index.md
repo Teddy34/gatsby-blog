@@ -49,6 +49,7 @@ const fetchData = url => fetch(url);
 const logThis = label => console.log(label);
 ```
 
+
 Pure functions are easy to understand as there is no dark magic happening anywhere. Nothing else has to be considered but the input and the output. Using and reusing the function again can be done with confidence that nothing is going to be affected anywhere in the program. Tests for pure functions should never need any stubbing mechanism, making them very simple to write and maintain. This is of course very suitable for Test Driven Development (the practice of writing tests before implementation).
 
 All frameworks are compatibles with pure functions and all codebases will benefit from using them. You can start with small utility functions or extract parts of a big function. This practice will naturally grow into your codebase. You will be naturally tempted at some point to reuse and share those small functions in other parts of the code. Please resist a bit from doing so at first; more on this later in this post.
@@ -70,6 +71,13 @@ Here is how Filter will improve the readability of your code. If you see a filte
 - assume that the input has not been mutated
 - finally, you can skip to the next line because you know what the output will be: a new list of same type items, filtered by some condition that can be usually guessed looking at the name of the predicate.
 
+```javascript
+  const getStrictPositiveNumbers = list => list.filter(value => value > 0);
+
+  const getValidValueList = list => list.filter(isValid);
+```
+
+
 #### Map
 
 The map function is strange at first. It seems less powerful than a `for` and yet it is one of the most widely used FP primitive.
@@ -80,6 +88,18 @@ With Map, again, you will improve your code readability:
 - like with filter, nothing should have been mutated.
 - you know that the size and order of your list are the same.
 - the API of the iteratee will determine what will be the type of your output list.
+
+```javascript
+  const getUserName = user => user.name;
+  const getUserNameList = userList => userList.map(getUserName);
+
+  // A bit of reusuability here. There are ways to optimize performance if needed.
+  const getFormattedUserNameList = userList => getUserNameList(userList).map(userName => userName.toUpperCase());
+
+  // A lot of things can be guessed about the computeShapeArea function
+  const getShapeAreaList = shapeList => shapeList.map(computeShapeArea);
+```
+
 
 The map function has also some longer-term potentials due to its mathematical properties that we will not address here. It's a solid foundation for your codebases.
 
@@ -118,6 +138,7 @@ const getMax = numberList => numberList.reduce(
 );
 ```
 
+
 #### ForEach
 
 Some closing words on forEach. It looks like a Map but it returns undefined. The only thing that can, therefore, be done with it is performing side effects (mutations, network calls, logging, etc.). All programs have to deal at some point with side effects and with all our purity oriented refactorings, we have pushed mutation in some very specific places. They are harder to test but their scope has been shrunk, making them more manageable.
@@ -125,10 +146,19 @@ Some closing words on forEach. It looks like a Map but it returns undefined. The
 - If you see a forEach, that should trigger a purity alert. An interesting property to mention here is that a pure function can only use pure functions. The stain of impurity propagates upward and therefore a function executing a forEach is impure.
 - There are other advanced ways to manage side effects in FP but this would bring us to some scary FP words.
 
-#### Basic building tools
+#### Assemble these building blocks to solve problems
 
 By using tools like map, filter and reduce, you will be creating a vocabulary for you and your teammates that can help you talking about code and decompose algorithms into simple elements. Describing a feature that has a combination of these FP keywords will be a rich and powerful experience. Let's take an example:
-In order to send a newsletter to users that have accepted it. It's easy to describe the requirement as filtering users that want the newsletter and map them to their emails that we will use to send the newsletter. This is how this would be translated in FP style JavaScript: `userList.filter(isUserInterestedByNewsletter).map(getEmailFromUser).forEach(sendNewletterByEmail)`. It is at the same time readable in plain English, robust and gives very strong indications about the API of each step.
+In order to send a newsletter to users that have accepted it. It's easy to describe the requirement as filtering users that want the newsletter and map them to their emails that we will use to send the newsletter. This is how this would be translated in FP style JavaScript: 
+```javascript
+userList
+  .filter(isUserInterestedByNewsletter)
+  .map(getEmailFromUser)
+  .forEach(sendNewletterByEmail)
+```
+
+
+It is at the same time readable in plain English, robust and gives very strong indications about the API of each step.
 
 Many other tools can be explored. They almost always have the same characteristics: they are very generic, pure and easy to combine.
 
@@ -157,7 +187,7 @@ Now let us play a bit with function naming while revisiting some previous items:
 // Classic data scientist coding style. With a comment on top if you are lucky.
 const doStuff = (a, result=[]) => {
   for (let e = 0; e < a.length, e++) {
-    result.push(x(a[e])[0]); //Boom, mutation
+    result.push(x(a[e])[0]); //Oops, mutation
   }
 }
 
@@ -182,3 +212,7 @@ const getBestSchoolStudentList = classList =>
   classList
     .map(takeBestStudent);
 ```
+
+Of course FP goes far beyond these first steps. There are nicer ways to write functions, with better performance or readability. There are also tools for all sorts of situations including side effect management and error handling. The FP world is vast but it's not needed to have an extensive knowledge of it to get most of its benefits.
+
+Applying these three principles only will have a severe positive impact on a codebase. It will reduce bug density, new feature complexity and even need for code documentation. All of that for a very cheap cognitive load.
