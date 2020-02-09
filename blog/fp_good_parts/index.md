@@ -6,7 +6,7 @@ tags: ['FP', 'Lodash']
 banner: "/assets/bg/vedene.jpg"
 ---
 
-Functional Programming is a trending topic. Is it only hype or really bringing value? How can this help you day today? This article aims at giving you practical ways in which you can improve your codebases using FP style programming.
+Functional Programming is a trending topic. Is it only hype or bringing real value? How can this help you today? This article aims at giving you practical ways in which you can improve your codebases using FP style programming.
 
 #### What is Functional Programming?
 It's an alternative to Imperative Programming which dominates the market. Usual descriptions of FP are highlighting its "mathematical" aspect and never fail to mention quickly Category Theory, Functors, Monads and other scary names. Without a basic understanding of many of those concepts, writing a program in one of the strict functional languages (Haskell, Lisp, Elm, etc.) is a difficult task. In practice, FP offers predictability and strong abstractions at the cost of efficiency.
@@ -32,7 +32,7 @@ const createFunctionWithState = () => {
   return () => internalValue++;
 }
 
-// Side effect: Obviously this basic class usage is not pure either.
+// Side effect: this basic class usage is not pure either.
 class MyClass {
   constructor(initialVal) {
     this.internalValue = initialVal;
@@ -149,7 +149,7 @@ Some closing words on forEach. It looks like a Map but it returns undefined. The
 #### Assemble these building blocks to solve problems
 
 By using tools like map, filter and reduce, you will be creating a vocabulary for you and your teammates that can help you talking about code and decompose algorithms into simple elements. Describing a feature that has a combination of these FP keywords will be a rich and powerful experience. Let's take an example:
-In order to send a newsletter to users that have accepted it. It's easy to describe the requirement as filtering users that want the newsletter and map them to their emails that we will use to send the newsletter. This is how this would be translated in FP style JavaScript: 
+To send a newsletter to users that have accepted it. It's easy to describe the requirement as filtering users that want the newsletter and map them to their emails that we will use to send the newsletter. This is how this would be translated in FP style JavaScript: 
 ```javascript
 userList
   .filter(isUserInterestedByNewsletter)
@@ -214,8 +214,8 @@ const getBestSchoolStudentList = classList =>
 ```
 
 
-Of course FP goes far beyond these first steps. There are nicer ways to write functions, with better performance or readability. There are also tools for all sorts of situations including side effect management and error handling. The FP world is vast but it's not needed to have an extensive knowledge of it to get most of its benefits.
+Of course, FP goes far beyond these first steps. There are nicer ways to write functions, with better performance or readability. There are also tools for all sorts of situations including side effect management and error handling. The FP world is vast but it's not needed to have extensive knowledge of it to get most of its benefits.
 
 Applying these three principles only will have a severe positive impact on a codebase. It will reduce bug density, new feature complexity and even need for code documentation. All of that for a very cheap cognitive load.
 
-Functional Programming can really enhance your code, even without any framework or library. Give it a try!
+Functional Programming can enhance your code, even without any framework or library. Give it a try!
