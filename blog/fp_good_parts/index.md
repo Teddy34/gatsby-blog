@@ -213,6 +213,9 @@ const getBestSchoolStudentList = classList =>
     .map(takeBestStudent);
 ```
 
+
 Of course FP goes far beyond these first steps. There are nicer ways to write functions, with better performance or readability. There are also tools for all sorts of situations including side effect management and error handling. The FP world is vast but it's not needed to have an extensive knowledge of it to get most of its benefits.
 
 Applying these three principles only will have a severe positive impact on a codebase. It will reduce bug density, new feature complexity and even need for code documentation. All of that for a very cheap cognitive load.
+
+Functional Programming can really enhance your code, even without any framework or library. Give it a try!
