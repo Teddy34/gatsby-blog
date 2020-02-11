@@ -8,10 +8,10 @@ banner: "/assets/bg/vedene.jpg"
 
 Functional Programming is a trending topic. Is it only hype or bringing real value? How can this help you today? This article aims at giving you practical ways in which you can improve your codebases using FP style programming.
 
-#### What is Functional Programming?
-It's an alternative to Imperative Programming which dominates the market. Usual descriptions of FP are highlighting its "mathematical" aspect and never fail to mention quickly Category Theory, Functors, Monads and other scary names. Without a basic understanding of many of those concepts, writing a program in one of the strict functional languages (Haskell, Lisp, Elm, etc.) is a difficult task. In practice, FP offers predictability and strong abstractions at the cost of efficiency.
+#### Functional Programming? Maybe not so scary
+It's an alternative to Imperative Programming which dominates the market. In practice, FP offers predictability and strong abstractions at the cost of efficiency. Usual descriptions of FP are highlighting its "mathematical" aspect and never fail to mention quickly Category Theory, Functors, Monads and other scary names. Without a basic understanding of many of those concepts, writing a program in one of the strict functional languages (Haskell, Lisp, Elm, etc.) is a difficult task. But the truth is that you don't need to go deep into the Functional world to benefit from its qualities.
 
-As always in this blog, we're using JavaScript has the base language. Although not a ["real" functional language](https://www.youtube.com/watch?v=eetWam3nhoM), JavaScript offers a lot of features to write a program using an FP style. We will focus on this article on how to get quickly the best of FP with the cheapest cognitive load.
+As always in this blog, we're using JavaScript has the base language. Although not a ["real" functional language](https://www.youtube.com/watch?v=eetWam3nhoM), JavaScript offers a lot of features to write a program using an FP **style**. We will focus on this article on how to get quickly the best of FP with the cheapest cognitive load.
 
 ### Number one: write more pure functions
 
@@ -37,8 +37,8 @@ class MyClass {
   constructor(initialVal) {
     this.internalValue = initialVal;
   }
-  setVal(newval) {
-    this.internalValue = newval; 
+  setVal(newValue) {
+    this.internalValue = newValue; 
   }
 }
 
@@ -206,13 +206,6 @@ const getBestSchoolStudentList = classList =>
   classList
   .map(getStudentListSortedByAscendingRank)
   .map(takeBest);
-
-// Bonus version using a new functional tool and map's associative properties
-// pipe(a,b) is equivalent to (...args) => b(a(...args)).
-const takeBestStudent = pipe(getStudentListSortedByAscendingRank, takeFirst);
-const getBestSchoolStudentList = classList =>
-  classList
-    .map(takeBestStudent);
 ```
 
 
