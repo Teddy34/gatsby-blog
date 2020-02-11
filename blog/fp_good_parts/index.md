@@ -11,7 +11,7 @@ Functional Programming is a trending topic. Is it only hype or bringing real val
 #### Functional Programming? Maybe not so scary
 It's an alternative to Imperative Programming which dominates the market. In practice, FP offers predictability and strong abstractions at the cost of efficiency. Usual descriptions of FP are highlighting its "mathematical" aspect and never fail to mention quickly Category Theory, Functors, Monads and other scary names. Without a basic understanding of many of those concepts, writing a program in one of the strict functional languages (Haskell, Lisp, Elm, etc.) is a difficult task. But the truth is that you don't need to go deep into the Functional world to benefit from its qualities.
 
-As always in this blog, we're using JavaScript has the base language. Although not a ["real" functional language](https://www.youtube.com/watch?v=eetWam3nhoM), JavaScript offers a lot of features to write a program using an FP **style**. We will focus on this article on how to get quickly the best of FP with the cheapest cognitive load.
+As always in this blog, we're using JavaScript as the base language. Although not a ["real" functional language](https://www.youtube.com/watch?v=eetWam3nhoM), JavaScript offers a lot of features to write a program using an FP **style**. We will focus on this article on how to get quickly the best of FP with the cheapest cognitive load.
 
 ### Number one: write more pure functions
 
