@@ -62,9 +62,9 @@ FP provides a new set of algorithmics primitives to replace progressively impera
 
 #### Filter
 
-One of the most common operations to perform is to loop in a list, to find/remove elements that match some criteria. All of these operations can be reduced to a simple name: filtering. A filter uses two inputs: a list (very often an Array but not necessarily) and a predicate. The predicate is a pure function that takes an item of the list as input and returns a boolean. Because our filter is pure, it must not mutate the original list but instead return a new filtered list. The original items themselves can be cloned (expensive) or more probably are just referenced (fast) in the new list.
+One of the most common operations to perform is to loop in a list, to find/remove elements that match some criteria. All of these operations can be reduced to a simple name: filtering. A *filter* uses two inputs: a list (very often an Array but not necessarily) and a predicate. The predicate is a pure function that takes an item of the list as input and returns a boolean. Because our *filter* is pure, it must not mutate the original list but instead return a new filtered list. The original items themselves can be cloned (expensive) or more probably are just added (fast) in the new list.
 
-Here is how Filter will improve the readability of your code. If you see a filter keyword somewhere, you can immediately:
+Here is how *filter* will improve the readability of your code. If you see a *filter* keyword somewhere, you can immediately:
 - be sure that there will never be an index handling bug.
 - guess the API of the predicate function, without even looking at a type definition or its code.
 - assume that no other data transformation has been performed.
@@ -80,12 +80,12 @@ Here is how Filter will improve the readability of your code. If you see a filte
 
 #### Map
 
-The map function is strange at first. It seems less powerful than a `for` and yet it is one of the most widely used FP primitive.
+The *map* function is strange at first. It seems less powerful than a `for` and yet it is one of the most widely used FP primitive.
 It applies on a list an iteratee function (pure of course) that transform each item into something else. The output list is kept in the same order.
 
-With Map, again, you will improve your code readability:
-- like with filter, no index error is possible.
-- like with filter, nothing should have been mutated.
+With *map*, again, you will improve your code readability:
+- like with *filter*, no index error is possible.
+- like with *filter*, nothing should have been mutated.
 - you know that the size and order of your list are the same.
 - the API of the iteratee will determine what will be the type of your output list.
 
@@ -101,13 +101,13 @@ With Map, again, you will improve your code readability:
 ```
 
 
-The map function has also some longer-term potentials due to its mathematical properties that we will not address here. It's a solid foundation for your codebases.
+The *map* function has also some longer-term potentials due to its mathematical properties that we will not address here. It's a solid foundation for your codebases.
 
 #### Reduce
 
-This is the swiss knife of FP. It would probably be worth a full article about how to use (and many people have done so), but the truth is that I use Reduce quite rarely and probably so should you. Here are the important things to do know with reduce:
-- Reduce is the operation of transforming a list into a value. That value can be another list, a single number or anything else.
-- You should expect purity from code in a reduce.
+This is the swiss knife of FP. It would probably be worth a full article about how to use (and many people have done so), but the truth is that I use *reduce* quite rarely and probably so should you. Here are the important things to do know with *reduce*:
+- *reduce* is the operation of transforming a list into a value. That value can be another list, a single number or anything else.
+- You should expect purity from code in a *reduce*.
 - Its best use is to build other tools (sum, group by, etc.). You can do almost anything with it.
 - The second best use is to encapsulate complex imperative (pure) code. This is handy when addressing performance.
 - It improves code readability by highlighting that a pure special operation is performed here. By providing a good name to the iteratee, it can be pretty fantastic to read.
@@ -141,17 +141,17 @@ const getMax = numberList => numberList.reduce(
 
 #### ForEach
 
-Some closing words on forEach. It looks like a Map but it returns undefined. The only thing that can, therefore, be done with it is performing side effects (mutations, network calls, logging, etc.). All programs have to deal at some point with side effects and with all our purity oriented refactorings, we have pushed mutation in some very specific places. They are harder to test but their scope has been shrunk, making them more manageable.
+Some closing words on *forEach*. It looks like a *map* but it returns undefined. The only thing that can, therefore, be done with it is performing side effects (mutations, network calls, logging, etc.). All programs have to deal at some point with side effects and with all our purity oriented refactorings, we have pushed mutation in some very specific places. They are harder to test but their scope has been shrunk, making them more manageable.
 
-- If you see a forEach, that should trigger a purity alert. An interesting property to mention here is that a pure function can only use pure functions. The stain of impurity propagates upward and therefore a function executing a forEach is impure.
+- If you see a *forEach*, that should trigger a purity alert. An interesting property to mention here is that a pure function can only use pure functions. The stain of impurity propagates upward and therefore a function executing a *forEach* is impure.
 - This marks the end of a chain of pure operations to actually do something.
 - The side effect in itself has been isolated into a function. It's testable separately.
 - There are other advanced ways to manage side effects in FP but this would bring us to some scary FP words.
 
 #### Assemble these building blocks to solve problems
 
-By using tools like map, filter and reduce, you will be creating a vocabulary for you and your teammates that can help you talking about code and decompose algorithms into simple elements. Describing a feature that has a combination of these FP keywords will be a rich and powerful experience. Let's take an example:
-To send a newsletter to users that have accepted it. It's easy to describe the requirement as filtering users that want the newsletter and map them to their emails that we will use to send the newsletter. This is how this would be translated in FP style JavaScript: 
+By using tools like *map*, *filter* and *reduce*, you will be creating a vocabulary for you and your teammates that can help you talking about code and decompose algorithms into simple elements. Describing a feature that has a combination of these FP keywords will be a rich and powerful experience. Let's take an example:
+To send a newsletter to users that have accepted it. It's easy to describe the requirement as to *filter* users that want the newsletter, *map* them to their emails and *forEach* email, send the newsletter. This is how this would be translated in FP style JavaScript: 
 ```javascript
 userList
   .filter(isUserInterestedByNewsletter)
