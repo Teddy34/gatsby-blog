@@ -199,7 +199,7 @@ const doStuff = (a, result=[]) => {
 const takeFirst = list => list[0]; // takeFirst is a great FP base tool (also known as head)
 const getStudents = classList =>
   classList
-  .map(x) // still quite obscure
+  .map(x) // still quite obscure function taken from first example. It needs to be pure.
   .map(takeFirst);
 
 // Improved version that aliases functions into a business oriented name
