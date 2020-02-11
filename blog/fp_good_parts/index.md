@@ -199,14 +199,15 @@ const doStuff = (a, result=[]) => {
 const takeFirst = list => list[0]; // takeFirst is a great FP base tool (also known as head)
 const getStudents = classList =>
   classList
-  .map(getStudentListSortedByAscendingRank)
-  .map(head);
+  .map(x) // still quite obscure
+  .map(takeFirst);
 
-// Improved version that aliases the base building block into a business oriented name
+// Improved version that aliases functions into a business oriented name
 const takeBest = takeFirst //takeFirst is imported from your toolkit.
+const getStudentListSortedByAscendingRank = x;
 const getBestSchoolStudentList = classList =>
   classList
-  .map(getStudentListSortedByAscendingRank)
+  .map(getStudentListSortedByAscendingRank) // note that we do not care how this function is implemented
   .map(takeBest);
 ```
 
