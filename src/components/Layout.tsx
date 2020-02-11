@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
     }
   }
   a {
-    color: ${theme.colors.grey.dark};
+    color: ${theme.colors.secondary};
     text-decoration: none;
     transition: all ${theme.transitions.normal};
   }

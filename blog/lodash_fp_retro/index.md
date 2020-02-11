@@ -1,8 +1,8 @@
 ---
 date: "2019-09-14"
 title: "Lodash FP usage retrospective"
-category: "Lodash"
-tags: ['WebDev', 'FP', 'lodash']
+category: "FP"
+tags: ['FP', 'lodash']
 banner: "/assets/bg/newjersey.jpg"
 ---
 
