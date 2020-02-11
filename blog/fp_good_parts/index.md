@@ -123,7 +123,9 @@ const groupBy = (list, key) =>
   list.reduce((memo, currentItem) => {
     const currentItemKeyValue = currentItem[key];
     if (memo[currentItemKeyValue]) {
-      memo[currentItemKeyValue].push(currentItem); // The function owns the memo, mutation is fine
+      // The groupBy function owns the memo so the mutation below is fine in this context.
+      // However, extracting the reduce iteratee would expose an impure function
+      memo[currentItemKeyValue].push(currentItem);
     }
     else {
       memo[currentItemKeyValue] = [currentItem];
