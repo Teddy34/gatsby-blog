@@ -1,5 +1,5 @@
 ---
-date: "2029-02-03"
+date: "2029-02-11"
 title: "FP: the Good Parts"
 category: "FP"
 tags: ['FP', 'Lodash']
