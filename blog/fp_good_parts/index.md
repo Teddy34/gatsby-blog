@@ -1,5 +1,5 @@
 ---
-date: "2029-02-11"
+date: "2020-02-11"
 title: "FP: the Good Parts"
 category: "FP"
 tags: ['FP', 'Lodash']
@@ -20,7 +20,7 @@ Pure functions are the bread-and-butter of FP. A function is pure when given the
 Here are some examples:
 
 ```javascript
-// The output cannot be predicted from the output
+// The output cannot be predicted from the input
 const getNow = () => Date.now();
 
 // Side effect: Mutating the input is considered a crime
