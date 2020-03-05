@@ -39,7 +39,7 @@ So what happens if it will send a nasty empty string as URL? The `some_fetching_
 
 How can we improve the situation? Adding a try-catch would be awful as it would propagate the bad `some_fetching_function` API that by returning a promise or throwing an error.
 
-### Promises handle well Errors.
+#### Promises know how to handle errors
 
 JavaScript promises are using the Promise/A+ specification (https://promisesaplus.com/).
 It defines what happens if one of the callbacks of a `promise.then` function throws an exception:
@@ -52,7 +52,7 @@ If either onFulfilled or onRejected throws an exception e, promise2 must be reje
 
 So regardless of what happens in one of the callbacks, we will get a lovely (but maybe rejected) Promise.
 
-### Enters a new challenger: Promise.resolve()
+#### Enters a new challenger: Promise.resolve()
 
 The JavaScript spec specifies that the Promise constructor provides a resolve function (https://tc39.es/ecma262/#sec-promise.resolve) that returns a resolved Promise with its parameter as promise value.
 
@@ -69,6 +69,8 @@ const our_function_good_version = url => {
 The nasty `some_fetching_function` is now executed as onFulfilled callback of the Promise.resolve(url) promise. The initial argument is passed correctly to the function. That way it is guaranteed that the promise chain will not be broken. A simple look at the function is enough to understand how `our_function_good_version` behaves without never looking at any of the onFulfilled function code. Isn't it neat?
 
 I almost always start a promise chain with a Promise.resolve(). Some lazy exceptions can be made when the first link of the promise chain is declared in a way that is already strongly coupled with our current chain.
+
+#### The case for unaries
 
 One might ask what happen what happens with functions that take many arguments. It's always possible to have an anonymous function calling it and rely on closures:
 
