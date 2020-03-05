@@ -6,7 +6,7 @@ tags: ['Promise', 'WebDev']
 banner: "/assets/bg/vedene.jpg"
 ---
 
-There are many reasons why I love promises. Truth to be told, I often prefer them to the new cool kid in town `async await`, more on that on another time, probably.
+There are many reasons why I love promises. Truth to be told, I often prefer them to the new cool kid in town `async-await`, more on that on another time, probably.
 
 Today, we will be looking at a small good pattern that I like with promises.
 Let's consider for a moment that code:
@@ -54,7 +54,7 @@ So regardless of what happens in one of the callbacks, we will get a lovely (but
 
 #### Enters a new challenger: Promise.resolve()
 
-The [JavaScript spec](https://tc39.es/ecma262/#sec-promise.resolve) specifies that the Promise constructor provides a resolve function  that returns a resolved Promise with its parameter as promise value.
+The [JavaScript spec](https://tc39.es/ecma262/#sec-promise.resolve) specifies that the Promise constructor provides a resolve function that returns a resolved Promise with its parameter as promise value.
 
 We can therefore write something like this:
 
@@ -77,11 +77,27 @@ One might ask what happen with functions that take many arguments. It's always p
 ```javascript
 const our_function_good_version = url => {
   return Promise.resolve()
-  .then(() => some_other_fetching_function(url, 1, 2))
+  .then(() => some_other_fetching_function(url, arg2, arg3))
+  .then(do_stuff_with_it)
+}
+```
+ 
+It's also possible to use a wrapper object or array (rarer). The object is typically used for parameter naming.
+
+```javascript
+const our_function_good_version_with_object_unary = (namedParameters) => {
+  return Promise.resolve(namedParameters)
+  .then(({ url, arg2, arg3 }) => some_other_fetching_function(url, arg2, arg3))
+  .then(do_stuff_with_it)
+}
+
+const our_function_good_version_with_array_unary = (...argumentList) => {
+  return Promise.resolve()
+  .then(() => some_other_fetching_function(...argumentList))
   .then(do_stuff_with_it)
 }
 ```
 
-Not fantastic but much safer than `our_function_bad_version`. I don't have this case very often in my code base due to classic Functional Programming patterns. FP loves unary functions (functions that take only one argument). We have many ways to build them (currying & partial application) and consume them (functors, composition & monad). Turns out Promises have a lot to do with it. The chainability of Promises is eager to consume only unary functions.
+Not fantastic but much safer than `our_function_bad_version`. I don't have these cases very often in my code base due to classic Functional Programming patterns. FP loves unary functions (functions that take only one argument). We have many ways to build them (currying & partial application) and consume them (functors, composition & monad). I turn out Promises have a lot to do with FP and does not come as a surprise that the callback signatures are unaries. It would be difficult to chain properly promises if it was not the case.
 
-So as a conclusion, wrapping the beginning of your promise chains with a Promise.resolve() is a great way to avoid bugs. Let them all have one.
+But let's close this short post and take a look back at the original problem. Wrapping the beginning of your promise chains with a Promise.resolve() is a great way to avoid bugs. Let them all have one.
