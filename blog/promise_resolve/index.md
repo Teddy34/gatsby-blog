@@ -39,7 +39,7 @@ So what happens if it will send a nasty empty string as URL? The some_fetching_f
 
 How can we improve the situation? Adding a try-catch would be awful as it would propagate the bad some_fetching_function API that by returning a promise or throwing an error.
 
-### Error handling in promises
+### Promises handle well Errors.
 
 JavaScript promises are using the Promise/A+ specification (https://promisesaplus.com/).
 It defines what happens if one of the callbacks of a `promise.then` function throws an exception:
