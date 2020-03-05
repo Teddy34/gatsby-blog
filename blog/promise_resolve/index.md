@@ -72,7 +72,7 @@ I almost always start a promise chain with a Promise.resolve(). Some lazy except
 
 #### The case for unaries
 
-One might ask what happen what happens with functions that take many arguments. It's always possible to have an anonymous function calling it and rely on closures:
+One might ask what happen with functions that take many arguments. It's always possible to have an anonymous function calling it and rely on closures:
 
 ```javascript
 const our_function_good_version = url => {
