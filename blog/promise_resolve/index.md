@@ -1,6 +1,6 @@
 ---
 date: "2020-03-05"
-title: "Promise.resolve()"
+title: "The hidden power of Promise.resolve()"
 category: "Programmer lifehacks"
 tags: ['Promise', 'WebDev']
 banner: "/assets/bg/vedene.jpg"
