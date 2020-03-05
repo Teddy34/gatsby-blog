@@ -41,7 +41,7 @@ How can we improve the situation? Adding a try-catch would be awful as it would 
 
 #### Promises know how to handle errors
 
-JavaScript promises are using the Promise/A+ specification (https://promisesaplus.com/).
+JavaScript promises are using the [Promise/A+ specification](https://promisesaplus.com/).
 It defines what happens if one of the callbacks of a `promise.then` function throws an exception:
 
 ```
@@ -54,7 +54,7 @@ So regardless of what happens in one of the callbacks, we will get a lovely (but
 
 #### Enters a new challenger: Promise.resolve()
 
-The JavaScript spec specifies that the Promise constructor provides a resolve function (https://tc39.es/ecma262/#sec-promise.resolve) that returns a resolved Promise with its parameter as promise value.
+The [JavaScript spec](https://tc39.es/ecma262/#sec-promise.resolve) specifies that the Promise constructor provides a resolve function  that returns a resolved Promise with its parameter as promise value.
 
 We can therefore write something like this:
 
