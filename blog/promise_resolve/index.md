@@ -35,7 +35,7 @@ const some_fetching_function = url => {
 Surprise! It does not always return a promise...
 Obviously, we would have never written a function that throws instead of returning a failed promise but hey, you never know how things can throw, especially with external code. Note that a good type system would flag the inconsistent return type.
 
-So what happens if it will send a nasty empty string as URL? The some_fetching_function never returns a promise. Its execution will throw an error. Since there's no try-catch, it will try to find the first parent that has one in the call stack and we don't have one in `our_function_bad_version`. Therefore an error is thrown upward, unhandled.
+So what happens if it will send a nasty empty string as URL? The `some_fetching_function` never returns a promise. Its execution will throw an error. Since there's no try-catch, it will try to find the first parent that has one in the call stack and we don't have one in `our_function_bad_version`. Therefore an error is thrown upward, unhandled.
 
 How can we improve the situation? Adding a try-catch would be awful as it would propagate the bad some_fetching_function API that by returning a promise or throwing an error.
 
