@@ -70,8 +70,6 @@ The nasty `some_fetching_function` is now executed as onFulfilled callback of th
 
 I almost always start a promise chain with a Promise.resolve(). Some lazy exceptions can be made when the first link of the promise chain is declared in a way that is already strongly coupled with our current chain.
 
-### Better title to be found
-
 One might ask what happen what happens with functions that take many arguments. It's always possible to have an anonymous function calling it and rely on closures:
 
 ```javascript
