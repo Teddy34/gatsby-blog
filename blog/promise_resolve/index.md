@@ -37,7 +37,7 @@ Obviously, we would have never written a function that throws instead of returni
 
 So what happens if it will send a nasty empty string as URL? The `some_fetching_function` never returns a promise. Its execution will throw an error. Since there's no try-catch, it will try to find the first parent that has one in the call stack and we don't have one in `our_function_bad_version`. Therefore an error is thrown upward, unhandled.
 
-How can we improve the situation? Adding a try-catch would be awful as it would propagate the bad some_fetching_function API that by returning a promise or throwing an error.
+How can we improve the situation? Adding a try-catch would be awful as it would propagate the bad `some_fetching_function` API that by returning a promise or throwing an error.
 
 ### Promises handle well Errors.
 
