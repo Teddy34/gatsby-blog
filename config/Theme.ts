@@ -18,6 +18,7 @@ const transitions = {
 const fontSize = {
   small: '0.9rem',
   big: '2.9rem',
+  bigPhone: '1.6rem',
 };
 
 export default {
