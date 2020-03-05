@@ -33,7 +33,7 @@ const some_fetching_function = url => {
 ```
 
 Surprise! It does not always return a promise...
-Obviously, we would have never written a function that throws instead of returning a failed promise but hey, you never know how things can throw, especially with external code. Note that a good type system would make sure that the API of the function is consistent.
+Obviously, we would have never written a function that throws instead of returning a failed promise but hey, you never know how things can throw, especially with external code. Note that a good type system would flag the inconsistent return type.
 
 So what happens if it will send a nasty empty string as URL? The some_fetching_function never returns a promise. Its execution will throw an error. Since there's no try-catch, it will try to find the first parent that has one in the call stack and we don't have one in `our_function_bad_version`. Therefore an error is thrown upward, unhandled.
 
@@ -66,7 +66,7 @@ const our_function_good_version = url => {
 }
 ```
 
-The nasty some_fetching_function is now executed as onFulfilled callback of the Promise.resolve(url) promise. The initial argument is passed correctly to the function. That way it is guaranteed that the promise chain will not be broken. A simple look at the function is enough to understand how our_function_good_version behaves without never looking at any of the onFulfilled function code. Isn't it neat?
+The nasty `some_fetching_function` is now executed as onFulfilled callback of the Promise.resolve(url) promise. The initial argument is passed correctly to the function. That way it is guaranteed that the promise chain will not be broken. A simple look at the function is enough to understand how `our_function_good_version` behaves without never looking at any of the onFulfilled function code. Isn't it neat?
 
 I almost always start a promise chain with a Promise.resolve(). Some lazy exceptions can be made when the first link of the promise chain is declared in a way that is already strongly coupled with our current chain.
 
