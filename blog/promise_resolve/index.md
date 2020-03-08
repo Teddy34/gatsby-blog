@@ -6,7 +6,7 @@ tags: ['Promise', 'WebDev']
 banner: "/assets/bg/vedene.jpg"
 ---
 
-There are many reasons why I love promises. Truth to be told, I often prefer them to the new cool kid in town `async-await`, more on that on another time, probably.
+There are many reasons why I love promises. Truth to be told, I often prefer them to the more recent `async-await`, more on that on another time, probably.
 
 Today, we will be looking at a small good pattern that I like with promises.
 Let's consider for a moment that code:
@@ -98,6 +98,6 @@ const our_function_good_version_with_array_unary = (...argumentList) => {
 }
 ```
 
-Not fantastic but much safer than `our_function_bad_version`. I don't have these cases very often in my code base due to classic Functional Programming patterns. FP loves unary functions (functions that take only one argument). We have many ways to build them (currying & partial application) and consume them (functors, composition & monad). I turn out Promises have a lot to do with FP and does not come as a surprise that the callback signatures are unaries. It would be difficult to chain properly promises if it was not the case.
+Not fantastic but much safer than `our_function_bad_version`. I don't have these cases very often in my code base due to classic Functional Programming patterns. FP loves unary functions (functions that take only one argument). They are easy to reason about (transformation of input type A to output type B), we have many ways to build them (currying & partial application) and consume them (functors, composition & monad). It turns out that Promises have a lot to do with FP and it does not come as a surprise that the callback signatures are unaries. It would be difficult to chain properly promises if it was not the case.  
 
 But let's close this short post and take a look back at the original problem. Wrapping the beginning of your promise chains with a Promise.resolve() is a great way to avoid bugs. Let them all have one.
