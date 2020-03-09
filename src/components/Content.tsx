@@ -29,5 +29,6 @@ export const Content = styled.div`
   }
   @media ${media.phone} {
     padding: 2rem 1.5rem;
+    margin-top: -1.5rem;
   }
 `;
