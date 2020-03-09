@@ -1,5 +1,5 @@
 ---
-date: "2020-03-05"
+date: "2020-03-09"
 title: "The hidden power of Promise.resolve()"
 category: "Programmer lifehacks"
 tags: ['Promise', 'WebDev']
