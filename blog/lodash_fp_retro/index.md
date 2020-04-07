@@ -132,12 +132,12 @@ const getEnabledPermissionList2 = flow(
 );
 
 // Flow composes also nicely into other flows
-const getUpperCasePermissionList = flow(
-  getUserPermissionList,
+const getUpperCaseEnabledPermissionList = flow(
+  getEnabledPermissionList,
   capitalize
 );
 
-console.log(getUpperCasePermissionList(userToken)); 
+console.log(getUpperCaseEnabledPermissionList(userToken)); 
 // ["SERVICEA", "SERVICEC"]
 
 ```
