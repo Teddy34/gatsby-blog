@@ -58,11 +58,11 @@ Webpack also killed our need for Bower. NPM replaced the legacy FE package manag
 
 With a final touch in October, we added Babel and replaced JSHint by ESLint. This enabled ES6 in the codebase. After one year of suffering using ES5, I could again write code the way I liked it.
 
-### Removing the AngularJS module system.
+### Removing the AngularJS module system (January 2018)
 
 AngularJS module system is built over the Dependency Injection principle. Its declarative approach removed the classic problem of dependency order (remember that our Gulp build system just concatenated all files). It was now already replaced by Webpack.
 
-The other benefit of DI is to allow an easy swap between different module implementation which is critical for unit testing in Object Oriented. Half of our state management (reducers and selectors) was only using pure functions that were easy to test without any need for mocking or module swap. It was obvious at this stage that the AngularJS module system for those files was now more in the way rather than helping. We were already writing our pure utility functions in CommonJS modules outside the scope of AngularJS. We started to remove from the AngularJS module system all files that did not have a dependency on an AngularJS module By January 2018, all of our reducer & selector files were simple CommonJS modules.
+The other benefit of DI is to allow an easy swap between different module implementation which is critical for unit testing in Object Oriented. Half of our state management (reducers and selectors) was only using pure functions that were easy to test without any need for mocking or module swap. It was obvious at this stage that the AngularJS module system for those files was now more in the way rather than helping. We were already writing our pure utility functions in CommonJS modules outside the scope of AngularJS. We started to remove from the AngularJS module system all files that did not have a dependency on an AngularJS module. By January 2018, all of our reducer & selector files were simple CommonJS modules.
 
 At this stage, the course was set to reduce the AngularJS usage to our UI components only to keep our options open. We continued to extract all pure logic to utility files and Redux state management but a key element blocked the migration of our Redux Action Creators and AngularJS services. AngularJS relies on the concept of a digest cycle to track the conditions to re-rendering the UI components. To identify the end of asynchronous events that should lead to a digest cycle, all those events must be wrapped by the framework. This is why we have to use `$http` instead of `fetch`, `$q`instead of ES Promises, `$timeout` instead of `setTimeout` and trigger manually digest cycles after callbacks. If we don't, AngularJS has no way to know to trigger a digest cycle after those asynchronous events.
 
@@ -85,7 +85,7 @@ From now on, no one had to care about the digest cycle anymore. The AngularJS fo
 
 I was finally happy about writing some AngularJS code. It was down to a single responsibility that it performed pretty well: build & update presentational UI components.
 
-### Saying goodbye to AngularJS
+### Saying goodbye to AngularJS (May - October 2018)
 
 In January 2018, Google announced that AngularJS was entering its end of life phase. It would be harder and harder from now on to have updates on our UI libs. We decided to find a replacement and the team settled on React. We started the migration in May 2018.
 
