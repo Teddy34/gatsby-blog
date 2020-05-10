@@ -1,6 +1,6 @@
 ---
 date: "2020-05-10"
-title: "AngularJS migration war story"
+title: "AngularJS Migration War Story"
 category: "War stories"
 tags: ['React', 'AngularJS', 'Refactoring']
 banner: "/assets/bg/pointe-sable-maurice2.jpg"
@@ -17,7 +17,7 @@ I have recently come to these [tweets](https://twitter.com/acemarke/status/12588
 > It also doesn't help that it's using Bower / IIFEs / no actual bundling / plain JS, when I'm used to Yarn / ESM / proper dev and prod bundling / TS catching my mistakes.
 > Which is why the first thing I did was convert it to build with CRA :)
 
-I recognized almost exactly a stack that I migrated a few years ago. I've read somewhere that software engineering projects hitting production have a median lifetime of over seven years. This means that even if this feels distant to me, still many other codebases will be migrated or rewritten from scratch in the years to come. I hope that this guide will help some people along the way.
+I recognized almost exactly a stack that I migrated a few years ago. I've read somewhere that software engineering projects hitting production have a median lifetime of over seven years. This means that even if this feels distant to me, still many other codebases will be migrated or rewritten from scratch in the years to come. I hope that this story will help people along the way.
 
 ### Initial stack (September 2016)
 
@@ -34,7 +34,7 @@ Even though AngularJS was not the freshest framework to work with, this bootstra
 
 The most immediate pains of this stack were the JavaScript language limitations. Having used the ES6 and beyond on other projects, it was hard to go years backward. Although some features are more cosmetic than we might think, this had severe impacts on the complexity and readability of our codebase. This also could become soon a showstopper preventing us to recruit as well.
 
-Meanwhile, we had features to ship. All of our changes would have to be atomic and spread over time without breaking the product. This is quite different from a big refactoring project where everything stops until it is finished. The time we lost building intermediate temporary solutions was compensated by the excellent risk management of this incremental process and the continuity of the roadmap.
+We did not have plans to migrate at that time. We just wanted to improve our stack and meanwhile, we had features to ship. All of our changes would have to be atomic and spread over time without breaking the product. This is quite different from a big refactoring project where everything stops until it is finished. The time we lost building intermediate temporary solutions was compensated by the excellent risk management of this incremental process and the continuity of the roadmap.
 
 ### Adopting Redux architecture (March 2017)
 
