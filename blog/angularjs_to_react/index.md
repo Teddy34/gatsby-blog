@@ -40,7 +40,7 @@ We did not have plans to migrate at that time. We just wanted to improve our sta
 
 As the app grew in complexity, the AngularJS data binding quickly showed its limits (performance and long tree traversals). The team looked for alternatives and decided to adopt a Redux architecture. As the package was not available on Bower and the base logic behind the Redux library was small, we temporarily reimplemented it using a few lines of RxJS. A team member pushed for the usage of a `mapStateToThis` function to replicate the `mapStateToProps` of React-Redux. After all, AngularJS is fine with mutations. By going away from the AngularJS data binding, we had to be more careful not to miss a digest cycle.
 
-One important impact of the Redux architecture was the code quality improvement. The separation of concerns between Action Creators, Reducers, and UI components made our unit tests more focused and valuable. The pure functions that Redux allowed us to use made the test easier to write. A omponent controller became only a bit of plumbing between Redux, an HTML template, and some utility functions.
+One important impact of the Redux architecture was the code quality improvement. The separation of concerns between Action Creators, Reducers, and UI components made our unit tests more focused and valuable. The pure functions that Redux promotes made tests easier to write. A component controller became only a bit of plumbing between Redux, an HTML template, and some utility functions.
 
 I remember being very supportive of the change. I liked Redux (and I still do), it was going in a more functional direction and more importantly, it was breaking the AngularJS monolith.
 
