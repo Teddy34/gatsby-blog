@@ -101,11 +101,11 @@ This also meant that we would live for some time with two frameworks plus their 
 
 The different stakeholders of the project saw the React migration making progress on their dashboards without noticing any significant visual difference in the product. The number of concurrent React tree nodes grew to maybe five or six, before reducing again as we were migrating their parent components. New developers joined the team without ever touching one line of AngularJS code. One day in October 2018, the last PR removed AngularJS from the project in fifteen lines.
 
-### Conclusion: decoupling is great
-
-The journey took some time but every single step was worth it. We kept delivering Release Candidates every week without playing with the nerves of our Product Owner. Each time a PR was merged, the quality of life for the dev team increased. Everyone, Juniors to Seniors, played a part.
+### Taking care of our stack and our teammates
 
 Mark Erikson's tweet was an answer to Tom Dale asking this question:
 > What were thing about Angular 1 that made people prefer React?
 
 In our experience, each time we decoupled a responsibility from AngularJS, our codebase became simpler and gained more freedom.
+
+The journey took some time but every single step was worth it. We kept delivering Release Candidates every week without playing with the nerves of our Product Owner. Each time a PR was merged, the quality of life for the dev team increased. Everyone, Juniors to Seniors, played a part.
