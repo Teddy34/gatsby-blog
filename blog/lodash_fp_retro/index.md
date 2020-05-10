@@ -1,7 +1,7 @@
 ---
 date: "2019-09-14"
 title: "Lodash FP usage retrospective"
-category: "FP"
+category: "War stories"
 tags: ['FP', 'lodash']
 banner: "/assets/bg/newjersey.jpg"
 ---
