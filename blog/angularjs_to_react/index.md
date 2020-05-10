@@ -22,12 +22,12 @@ I recognized almost exactly a stack that I migrated a few years ago. I've read s
 ### Initial stack (September 2016)
 
 The company I recently joined had a strong history with AngularJS. We started the project using an internal bootstrap containing:
-* AngularJS 1.5 as the base framework
-* Angular Material for the UI lib
-* Bower as FE package manager
+* AngularJS 1.5 as the base framework.
+* Angular Material for the UI lib.
+* Bower as FE package manager.
 * [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) as primitive module system, concatenated by Gulp.
-* NodeJS 0.12 as build environment
-* EcmaScript 5 language specification
+* NodeJS 0.12 as build environment.
+* EcmaScript 5 language specification.
 * Plus many other features out of the scope of this article.
 
 Even though AngularJS was not the freshest framework to work with, this bootstrap enabled us to deliver a close to production level product by the end of week 2. After years spent on 6 months release trains, this felt magical.
