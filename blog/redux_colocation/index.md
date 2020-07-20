@@ -1,9 +1,9 @@
 ---
-date: "2019-07-26"
+date: "2020-07-20"
 title: "Redux Selector colocation"
 category: "War stories"
 tags: ['redux', 'javascript', 'WebDev']
-banner: "/assets/bg/canigou.jpg"
+banner: "/assets/bg/pointe-saint-matthieu.jpg"
 ---
 
 I am a big fan of the state tree splitting concept. Having small modules with smaller responsibilities feels good. It's also easier to test. Finally, I like the ability to reset the children to their default state from the parent. When we adopted Redux in my current project, we immediately went for tree splitting. It's probably the norm in Redux applications.
