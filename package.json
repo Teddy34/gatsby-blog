@@ -48,7 +48,7 @@
     "node-sass": "4.13.1",
     "polished": "3.4.4",
     "prettier": "1.19.1",
-    "prismjs": "1.19.0",
+    "prismjs": "1.21.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-helmet": "5.2.1",
