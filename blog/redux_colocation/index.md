@@ -18,8 +18,7 @@ This blog post is written with my current use case in mind. The biggest applicat
 * a small number of UI specific selectors
 * 132 usages of the reselect library
 
-Even if the application is not of a monster size, this is not of the complexity of a demo todo app where any state management solution can shine. To use Redux at this scale, we had to make decisions about how we would structure, consume and test our state management code.
-Overall, we are having an excellent time with Redux. Today I will focus on our experience with state tree splitting and colocating selectors and reducers.
+Even if the application is not of a monster size, this is not of the complexity of a demo todo app where any state management solution can shine. To use Redux at this scale, we had to make decisions about how we would structure, consume and test our state management code. Overall, we are having an excellent time with Redux. Today I will focus on our experience with state tree splitting and colocating selectors and reducers.
 
 ### Automatic base selector forwarding
 
@@ -108,10 +107,12 @@ export default {
 }
 ```
 
-If any selector name is duplicated, it would throw at application initialization time. A limitation of the approach is that it's not possible to use the same reducer at different places in the state tree. I don't think that this is desirable anyway. This colocation & forwarding approach, with those few tools made our base selectors very easy to write, use, and maintain.
+If any selector name is duplicated, it would throw at application initialization time. A limitation of the approach is that it's not possible to use the same reducer at different places in the state tree. I don't think that this is desirable anyway.
+
+This colocation & forwarding approach, with those few tools made our base selectors very easy to write, use, and maintain. We call selectors exposed in this way on the root reducer "base" selectors as they are pointing at only one slice of the state.
 
 ### Derived selectors using composition
-The second classic issue with colocation is related to selectors needing different slices of the state to compute a derived value. Those selectors need to know the shape of a state node parent for all needed slices. A mitigation strategy would be to define correct responsabilities for the slices in order to use only one slice for the selector. Grouping too much the slices would defeat the slicing purpose. Anyway at some point the problem will arise again and no rearranging will solve the issue.
+The second classic issue with colocation is related to selectors needing different slices of the state to compute a derived value. Those selectors have a coupling to the shape of a state node parent for all needed slices, which feels bad. A mitigation strategy would be to define correct responsabilities for the slices in order to use only one slice for the selector. Grouping too much the slices would defeat the slicing purpose. Anyway at some point the problem will arise again and no rearranging will solve the issue.
 
 Ideally, we would want those selectors to know as little as possible of the state structure. A good way to achieve that is to access any simple or derived value through other selectors (colocated or not). This fit particulary well the selector forwarding mechanism that we described earlier. This is also a perfect match for the reselect library. This library allows to compose selectors to build new selectors.
 
@@ -141,5 +142,4 @@ Since selectors are in the wonderful world of pure functions, the same inputs wi
 
 ### Conclusion
 
-The combinaison of our automatic base selector forwarding and composition to produce derived selector is really powerful for complex state management. We went from a couple of state slices to a respectable number without headaches. It's still quite easy today to reshape our state tree by dividing or merging slices together. The performance of state updates and consommations is still excellent.
-
+The combinaison of our automatic base selector forwarding and composition to produce derived selector is really powerful for complex state management. We went from a couple of state slices to a respectable number without headaches. It's still quite easy today to reshape our state tree by dividing or merging slices together. The performance of state updates and consommations is excellent.
