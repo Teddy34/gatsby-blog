@@ -144,6 +144,8 @@ Since selectors are in the wonderful world of pure functions, the same inputs wi
 
 ### Conclusion
 
+To summarize, all of our base selectors benefit at the same time from the encapsulation of the colocation technique and can be used using the global state as input. They are a foundation to build an additional layer of derived selectors which is also agnostic of the state structure.
+
 The combination of our automatic base selector forwarding and composition to produce derived selector allowed us to go from a couple of state slices to a respectable number without headaches. It's still easy today to reshape our state tree by dividing or merging slices.
 
 Redux has an often exaggerated reputation of complexity, but in the experience of our team, it has helped us instead to manage complexity in our growing applications. I hope to cover in future posts some other successes of our story with Redux and propose a solid mental framework to see how simple its architecture is when done right.
