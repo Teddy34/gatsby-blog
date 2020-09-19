@@ -144,4 +144,6 @@ Since selectors are in the wonderful world of pure functions, the same inputs wi
 
 ### Conclusion
 
-The combination of our automatic base selector forwarding and composition to produce derived selector is powerful for complex state management. We went from a couple of state slices to a respectable number without headaches. It's still quite easy today to reshape our state tree by dividing or merging slices. The performance of state updates and access is excellent.
+The combination of our automatic base selector forwarding and composition to produce derived selector allowed us to go from a couple of state slices to a respectable number without headaches. It's still easy today to reshape our state tree by dividing or merging slices.
+
+Redux has an often exaggerated reputation of complexity, but in the experience of our team, it has helped us instead to manage complexity in our growing applications. I hope to cover in future posts some other successes of our story with Redux and propose a solid mental framework to see how simple its architecture is when done right.
