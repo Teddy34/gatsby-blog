@@ -18,9 +18,10 @@ This blog post is written with my current use case in mind. The biggest applicat
 * a small number of UI specific selectors
 * 132 usages of the reselect library
 
-Overall, we are having an excellent time with it. [A previous blog post](https://codingwithjs.rocks/blog/angular-js-migration-war-story) explains how it has helped us moving from AngularJS to React. Today I will focus on our experience with state tree splitting and colocating selectors and reducers.
+Even if the application is not of a monster size, this is not of the complexity of a demo todo app where any state management solution can shine. To use Redux at this scale, we had to make decisions about how we would structure, consume and test our state management code.
+Overall, we are having an excellent time with Redux. Today I will focus on our experience with state tree splitting and colocating selectors and reducers.
 
-### State tree splitting
+### Automatic base selector forwarding
 
 State tree splitting is probably the norm in most Redux Applications and I am a big fan of the concept. A single reducer file handling all potential actions can be quite difficult to write and test. The most common way to organize reducer's structure is by assigning them only a slice of the state and giving them full responsability over it.
 
@@ -107,29 +108,38 @@ export default {
 }
 ```
 
-If any selector name is duplicated, it would throw at application initialization time. A limitation of the approach is that it's not possible to use the same reducer at different places in the state tree. I don't think that this is desirable anyway.
+If any selector name is duplicated, it would throw at application initialization time. A limitation of the approach is that it's not possible to use the same reducer at different places in the state tree. I don't think that this is desirable anyway. This colocation & forwarding approach, with those few tools made our base selectors very easy to write, use, and maintain.
 
-### Composition of selectors
+### Derived selectors using composition
 The second classic issue with colocation is related to selectors needing different slices of the state to compute a derived value. Those selectors need to know the shape of a state node parent for all needed slices. A mitigation strategy would be to define correct responsabilities for the slices in order to use only one slice for the selector. Grouping too much the slices would defeat the slicing purpose. Anyway at some point the problem will arise again and no rearranging will solve the issue.
 
-Ideally, we would want those selectors to know as little as possible of the state structure. A good way to achieve that is to access any simple or derived value through other selectors (colocated or not). This fit particulary well the selector forwarding mechanism that we described earlier. This is also a perfect match for the reselect library. This library allows to compose selectors to build new selectors with caching capabilities.
+Ideally, we would want those selectors to know as little as possible of the state structure. A good way to achieve that is to access any simple or derived value through other selectors (colocated or not). This fit particulary well the selector forwarding mechanism that we described earlier. This is also a perfect match for the reselect library. This library allows to compose selectors to build new selectors.
 
 ```
 	import { createSelector } from 'reselect';
 
-	// selectorA and selector B both take the same state (or slice) as input and produce a value
+	// selectorA and selectorB both take the same state (or slice) as input and produce a value
 	import { selectorA, selectorB } from './root_reducer';
 
-	// This function uses the result of other selectors and produce a new value. It's NOT a selector
-	const composeSelectorResults = (a, b) => a + b);
+	// This function uses the result of other selectors and produce a new value. It's NOT a selector.
+	const composeSelectorsResults = (a, b) => a + b);
 
 	// createSelector usage produces a selector function taking the same input as selectorA and selectorB
 	export const getAPlusB = createSelector([
 		selectorA,
 		selectorB,
-	], composeSelectorResults;
+	], composeSelectorsResults);
 
 
 	// getAPlusB(state) is equivalent to composeSelectorResults(selectorA(state), selectorB(state))
-	// getAPlusB can be part of a selector composition again in the same way.
+	// As getAPlusB is a selector, it can be part of another selector composition in the same way.
 ```
+
+This technique is used to write all our derived selectors and some of our base selectors (inside the same reducer file). We had an short hesitation during the tests between mocking a selector's dependency (more unit test minded) or feeding the whole state (more integration test like), but decided in the end for the second solution.
+
+Since selectors are in the wonderful world of pure functions, the same inputs will provide the same output, making it easy to cache. This embedded by default by Reselect. All our expensive state computation are encapsulated in a createSelector for this reason. This feature is the key that makes our state performant when consumming it.
+
+### Conclusion
+
+The combinaison of our automatic base selector forwarding and composition to produce derived selector is really powerful for complex state management. We went from a couple of state slices to a respectable number without headaches. It's still quite easy today to reshape our state tree by dividing or merging slices together. The performance of state updates and consommations is still excellent.
+
