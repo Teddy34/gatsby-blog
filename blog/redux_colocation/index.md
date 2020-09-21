@@ -67,8 +67,8 @@ const defaultState = {
 
 export const reducer(previousState = defaultState) {...}
 // A local selector. 
-const getd = state => state.d;
-get(defaultState) // 2
+const getD = state => state.d;
+getD(defaultState) // 2
 ```
 
 However, this solution has a big issue: the input for those reducer-file bound selectors is the local slice of the state, not the global one anymore, making them impossible to use without additional pipes Randy Coulman discussed the problem in [a series of great blog posts](https://randycoulman.com/blog/2016/09/20/redux-reducer-selector-asymmetry/). 
