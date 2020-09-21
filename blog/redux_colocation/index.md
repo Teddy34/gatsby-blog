@@ -47,7 +47,7 @@ const getB = state => state.a.b;
 getB(globalState) // 1
 ```
 
-Another option is called reducer/selector colocation. In this pattern, reducer files are hosting selectors that work with the local state. The reducer/selectors module is therefore atomic and does not leak the state structure as all selectors affected by changes to the state structure are just next to their slice. The colocation of selectors with matching state slices is an excellent choice to avoid refactoring nightmares. 
+Another option is called [reducer/selector colocation](https://adrianarlett.gitbooks.io/idiomatic-redux-by-dan-abramov/content/colocating-selectors-with-reducers.html). In this pattern, reducer files are hosting selectors that work with the local state. The reducer/selectors module is therefore atomic and does not leak the state structure as all selectors affected by changes to the state structure are just next to their slice. The colocation of selectors with matching state slices is an excellent choice to avoid refactoring nightmares. 
 
 ```
 // reducer file managing "a" slice
