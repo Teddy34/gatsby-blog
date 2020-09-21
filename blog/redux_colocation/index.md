@@ -24,31 +24,54 @@ Even if the application is not of a monster size, this is not of the complexity 
 
 ### Automatic base selector forwarding
 
-State tree splitting is probably the norm in most Redux Applications. A single reducer file handling all potential actions is difficult to write and test. The most common way to organize reducers' structure is by assigning them only a slice of the state and giving them full responsibility for it.
+[State tree splitting](https://redux.js.org/recipes/structuring-reducers/splitting-reducer-logic) is probably the norm in most Redux Applications. A single reducer file handling all potential actions is difficult to write and test. The most common way to organize reducers' structure is by assigning them only a slice of the state and giving them full responsibility for it.
 
 Having small modules with small responsibilities feels good. It's also easier to test. Also, I like the ability to reset the children to their default state from the parent. When my team adopted Redux in my current project, we immediately went for tree splitting. While the reducing of actions was clearer, we quickly highlighted some issues regarding data access.
 
 Reading data from the state can be performed by simply accessing the state tree and navigate through its property. While this works at small scales, the lack of encapsulation becomes quickly problematic. Indeed, refactoring the state structure with this data access method leads to updating a ton of UI components. It can be avoided using dedicated isolated pure functions to read the state. It is a great way to hide the state structure to state consumers. In the Redux world, they are called Selectors.
 
+Global selectors using the global state group all the path problems in the selectors but doesn't solve them. It creates an asymmetry between the selectors and the reducers' structure. If the local state structure for a reducer is changed, all the selectors relying on it must be updated. Worse: without a type system, it might be hard to detect which selectors need a review, and the unit tests will probably not be able to catch it.
+
 ```
-const state = {
+const globalState = {
   a: {
     b: 1
   },
   c: {
-    2
+    d: 2
   }
 };
 
-// A basic selector. A state refactor will only affect the selector and not the UI components using the selector.
+// Global selector. A state refactor will only affect the selector and not the UI components using the selector.
 const getB = state => state.a.b;
+getB(globalState) // 1
 ```
 
-Selectors seem to solve the issue for the component knowledge, but the API of the selector remains unclear. Should it take the global state or the reducer's slice of it?
+Another option is called reducer/selector colocation. In this pattern, reducer files are hosting selectors that work with the local state. The reducer/selectors module is therefore atomic and does not leak the state structure as all selectors affected by changes to the state structure are just next to their slice. The colocation of selectors with matching state slices is an excellent choice to avoid refactoring nightmares. 
 
-The first option groups all the path problems in the selector but doesn't solve them. It also creates an asymmetry between the selectors and the reducers' structure. If the local state structure for a reducer is changed, all the selectors relying on it must be updated. Worse: without a type system, it might be hard to detect which selectors need a review, and the unit tests will probably not be able to catch it.
+```
+// reducer file managing "a" slice
+const defaultState = {
+    b: 1
+};
 
-The second option is called reducer/selector colocation. Selectors working with the local slice of the state are fantastic. The reducer/selectors module is atomic and does not leak the state structure as all selectors affected by changes to the state structure are just next to their slice. The colocation of selectors with matching state slices is an excellent choice to avoid refactoring nightmares. But this solution has a big issue: the input for those reducer-file bound selectors is the local slice of the state, not the global one anymore. Randy Coulman discussed the problem in [a series of great blog posts](https://randycoulman.com/blog/2016/09/20/redux-reducer-selector-asymmetry/). 
+export const reducer(previousState = defaultState) {...}
+//Local selector. 
+const getB = state => state.b;
+getB(defaultState) // 1
+
+// reducer file managing "c" slice
+const defaultState = {
+    d: 2
+};
+
+export const reducer(previousState = defaultState) {...}
+// A local selector. 
+const getd = state => state.d;
+get(defaultState) // 2
+```
+
+However, this solution has a big issue: the input for those reducer-file bound selectors is the local slice of the state, not the global one anymore, making them impossible to use without additional pipes Randy Coulman discussed the problem in [a series of great blog posts](https://randycoulman.com/blog/2016/09/20/redux-reducer-selector-asymmetry/). 
 
 Our team shared the view that, as final consumers of the state are global objects (UI tree and actions), the API of selectors should always use the global state as input.
 It makes the global selector API efficient and simple: `globalState => value`. That also enables very strong reusability with reselect selector composition. But how to make colocated selectors, defined to work with only a slice of the state, have the global state as input?
