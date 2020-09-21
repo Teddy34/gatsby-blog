@@ -85,7 +85,7 @@ export default {
 };
 ```
 
-Each reducer file exposes selectors that work with its local state slice, at all levels of the reducer tree. The logic is the same up to the root reducer that exposes a version of every collocated selector using the global state as the argument instead of the local state slice. It scales well horizontally and vertically and is testable at every level. Adding selectors to a reducer file or moving state slices to another node is easy as they are tested with their local state and automatically forwarded to the root reducer.
+Each reducer file exposes selectors that work with its local state slice, at all levels of the reducer tree. The logic is the same up to the root reducer that exposes a version of every colocated selector using the global state as the argument instead of the local state slice. It scales well horizontally and vertically and is testable at every level. Adding selectors to a reducer file or moving state slices to another node is easy as they are tested with their local state and automatically forwarded to the root reducer.
 
 However, there is one detail to improve. With our current implementation, if two selectors are sharing the same name, this results in a conflict following which one of them is overwritten. It brings us to an important question: should we use the same name between local reducers and forwarding ones? We quickly settled to use the same to avoid mistakes. It also forced us to avoid having two selectors with the same name in the whole application which resulted in solving the original issue by using better selector's names. Using global selector names with a global state is not so shocking after all.
 
