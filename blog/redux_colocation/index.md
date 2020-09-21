@@ -71,7 +71,7 @@ const getD = state => state.d;
 getD(defaultState) // 2
 ```
 
-However, this solution has a big issue: the input for those reducer-file bound selectors is the local slice of the state, not the global one anymore, making them impossible to use without additional pipes Randy Coulman discussed the problem in [a series of great blog posts](https://randycoulman.com/blog/2016/09/20/redux-reducer-selector-asymmetry/). 
+However, this solution has a big issue: the input for those reducer-file bound selectors is the local slice of the state, not the global one anymore, making them impossible to use without additional piping. Randy Coulman discussed the problem in [a series of great blog posts](https://randycoulman.com/blog/2016/09/20/redux-reducer-selector-asymmetry/). 
 
 Our team shared the view that, as final consumers of the state are global objects (UI tree and actions), the API of selectors should always use the global state as input.
 It makes the global selector API efficient and simple: `globalState => value`. That also enables very strong reusability with reselect selector composition. But how to make colocated selectors, defined to work with only a slice of the state, have the global state as input?
