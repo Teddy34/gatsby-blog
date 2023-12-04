@@ -6,13 +6,14 @@ tags: ['FP', 'tests', 'TDD']
 banner: "/assets/bg/monkeys.jpg"
 ---
 
+
 # Unit tests and me
 
 I discovered unit testing in 2003, under the guidance of a [great tech lead](https://www.linkedin.com/in/bernard-roubaud-8246b33/). I understood the value, but the execution was a challenge for the young developer that I was. I did not see the practice in the teams that I joined later on until recently. I was still a firm believer in unit tests, but it was hard for me to find the correct way to implement them and convince colleagues to get into it. The turning point for me was the [Survival Guide for Legacy Code talk in EVE Online Fanfest 2015](https://www.youtube.com/watch?v=JCR9q1MMO2E&pp=ygUWZXZlIG9ubGluZSBsZWdhY3kgY29kZQ%3D%3D). A tl;dr version of the talk could be a quote from Micheal Feathers: "Legacy Code is code without tests". It took me a couple of years of practice, but I finally reached a point where I could reach high coverage in my codebases with high support from the team. I hope that these few lines will help you get there faster than me.
 
 # Are unit tests worth it?
 
-While we were taught to test and automate code during our academic journey, the real-world scenario often diverges. The reality is that across the industry, the level of unit testing is very low. Worse, when I push for more unit testing, I get resistance, especially from devs. It's a constant of most projects that I joined.The usual culprits in this resistance include:
+While we were taught to test and automate code during our academic journey, the real-world scenario often diverges. The reality is that across the industry, the level of unit testing is very low. Worse, when I push for more unit testing, I get resistance, especially from devs. It's a constant of most projects that I joined. The usual culprits in this resistance include:
 
 - I do not have the time for it (number one excuse).
 - Tests are expensive or complex to design and write.
@@ -81,11 +82,11 @@ describe('AppCenterUtils', () => {
 });
 ```
 
-The other key of effective test writing lies in developing a deep understanding of what proves challenging to test. Armed with this knowledge, one can proactively address the following section.
+The other key to effective test writing lies in developing a deep understanding of what proves challenging to test. Armed with this knowledge, one can proactively address the following section.
 
 ## 2) Code complexity
 
-Writing a lot of tests should result naturally prompts developers to reevaluate their coding practices.
+Writing a lot of tests should naturally prompt developers to reevaluate their coding practices.
 
 It becomes evident that certain aspects pose challenges to testing, such as asynchronous behaviors, intricate internal states, complex dependencies, and heavy branching logic. Ironically, the most intricate and fragile code segments tend to be the ones initially exempted from testing. This paradox highlights the need for a shift in approach, emphasizing comprehensive testing for the most complex components.
 
@@ -94,7 +95,7 @@ Simplifying the testing process involves leveraging a powerful tool from the ars
 
 By extracting business logic and focusing extensive testing efforts on pure functions, you set a high coverage target for these components. In contrast, for impure code sections, a lower coverage target suffices. This approach not only streamlines the testing process but also promotes code clarity and maintainability.
 
-Strategies such as minimizing the number of arguments, reducing cyclomatic complexity, and eliminating for loops with their associated counters contribute significantly to code simplicity.
+Strategies such as minimizing the number of arguments, reducing cyclomatic complexity, and eliminating for-loops with their associated counters contribute significantly to code simplicity.
 
 By embracing pattern matching, as explored in the blog post (https://codingwithjs.rocks/blog/better-branching-with-lodash-cond), you can effectively streamline branching logic, making code more readable and less prone to errors.
 
@@ -116,7 +117,7 @@ Once again, Test Driven Development (TDD) steps in as a valuable ally. By focusi
 
 Furthermore, engaging in thoughtful test design might lead to a realization that the actual code implementation can be significantly simplified. This iterative process of refining test design and code implementation can bring about both improved test efficiency and a more streamlined codebase.
 
-That impact of the test on the actual implementation marks a good transition from cost to value.
+The impact of the test on the actual implementation marks a good transition from cost to value.
 
 # Improving the value of unit tests
 
@@ -126,7 +127,7 @@ Unit tests offer a practical solution—not just for validation but as a means t
 
 When dealing with legacy code, a strategic approach to testing becomes a valuable asset. By thoughtfully creating tests that address known or desired use cases, you're not only validating behavior but also building tangible documentation. This proactive approach transforms legacy code from a puzzle into a manageable entity, making it more maintainable and aligning it with modern development standards.
 
-By adhering to the solutions outlined to manage code and behaviour complexities, the intrinsic value of unit tests as a design tool becomes unmistakable. Using your tests to challenge your code architecture, rather than fitting forcefully tests into pre-existing architecture, fosters an environment conducive to better code quality.
+By adhering to the solutions outlined to manage code and behavior complexities, the intrinsic value of unit tests as a design tool becomes unmistakable. Using your tests to challenge your code architecture, rather than fitting forcefully tests into pre-existing architecture, fosters an environment conducive to better code quality.
 
 A final noteworthy aspect centers around the enhancement of code reviews. In the typical landscape of pull requests, it's not uncommon to encounter code that appears a bit cryptic, demanding mental efforts to unravel its intended purpose and identify potential pitfalls. Unit tests, however, provide a welcome declaration of intent. By collapsing the test content and focusing solely on the test descriptions, a clear and tangible understanding of the code's behavior emerges. This not only expedites the code review process but elevates it to a more robust and insightful level.
 
@@ -159,10 +160,7 @@ As a conclusion, let's summarise everything into a small guide about how to get 
 
 - follow a test writing pattern like AAA.
 - isolate your logic within (pure) functions. Prioritize extensive testing of these functions, deferring integration testing to a later stage. 
-- find waysto reduce the number of mocks.
+- find ways to reduce the number of mocks.
 - only test the use cases that you need.
-- use the tests to reflect on your code architeture.
+- use the tests to reflect on your code architecture.
 - If you collapse all the test content, it should be understandable and helpful.
-
-
-
